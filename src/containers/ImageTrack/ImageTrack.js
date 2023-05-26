@@ -24,8 +24,7 @@ const ImageTrack = (props) => {
       const maxDelta = containerRect.width / 1.5;
       let nextRollingPos =
         prevRollingPosRef.current + (currDelta / maxDelta) * -100;
-      nextRollingPos = Math.min(nextRollingPos, 0);
-      nextRollingPos = Math.max(nextRollingPos, -100);
+      nextRollingPos = Math.max(Math.min(nextRollingPos, 0), -100);
       setRollingPos(nextRollingPos);
     }
   };
@@ -40,6 +39,20 @@ const ImageTrack = (props) => {
     prevRollingPosRef.current = rollingPos;
   };
 
+  const renderImages = () => {
+    const images = [amiya, herta, kirara, sakura, shionn];
+    return images.map((src, index) => (
+      <img
+        key={index}
+        className="image"
+        src={src}
+        alt=""
+        draggable="false"
+        style={{ objectPosition: `${100 + rollingPos}% center` }}
+      />
+    ));
+  };
+
   return (
     <div
       className="track-container"
@@ -52,11 +65,7 @@ const ImageTrack = (props) => {
         className="image-track"
         style={{ transform: `translate(${rollingPos}%, -50%)` }}
       >
-        <img className="image" src={amiya} alt="" draggable="false" />
-        <img className="image" src={herta} alt="" draggable="false" />
-        <img className="image" src={kirara} alt="" draggable="false" />
-        <img className="image" src={sakura} alt="" draggable="false" />
-        <img className="image" src={shionn} alt="" draggable="false" />
+        {renderImages()}
       </div>
     </div>
   );

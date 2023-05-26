@@ -17,8 +17,7 @@
 }
 
 .image-track > .image {
-  height: 30vmin;
-  width: 22vmin;
+  height: 40vmin;
+  width: 32vmin;
   object-fit: cover;
-  object-position: center;
 }
