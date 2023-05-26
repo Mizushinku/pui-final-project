@@ -21,9 +21,8 @@
   align-items: center;
   justify-content: center;
   position: fixed;
-  top: 100px;
   left: 10%;
-  width: 500px;
+  width: 20%;
   height: 500px;
 }
 
@@ -31,4 +30,114 @@
   max-width: 500px;
   max-height: 500px;
   object-fit: contain;
+}
+
+.angry-grid {
+  display: grid;
+
+  position: fixed;
+  left: 35%;
+
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+
+  grid-template-areas:
+    "label0 label1 label1 label1 label1 label1"
+    "label2 label3 label3 label3 label3 label3"
+    "label4 label5 label5 label5 label5 label5"
+    "label6 label7 label7 label7 label7 label7"
+    "label8 label9 label10 label11 label12 label13"
+    "label14 label15 label16 label17 label18 label19";
+
+  gap: 0px;
+  width: 50%;
+  height: 500px;
+
+  text-align: center;
+}
+
+#item-0 {
+  background-color: #9aa79f;
+  grid-area: label0;
+}
+#item-1 {
+  background-color: #6fbc59;
+  grid-area: label1;
+}
+#item-2 {
+  background-color: #f5dd89;
+  grid-area: label2;
+}
+#item-3 {
+  background-color: #fb57c6;
+  grid-area: label3;
+}
+#item-4 {
+  background-color: #fc6755;
+  grid-area: label4;
+}
+#item-5 {
+  background-color: #dfdbbc;
+  grid-area: label5;
+}
+#item-6 {
+  background-color: #f989be;
+  grid-area: label6;
+}
+#item-7 {
+  background-color: #9b9b57;
+  grid-area: label7;
+}
+#item-8 {
+  background-color: #db9b5a;
+  grid-area: label8;
+}
+#item-9 {
+  background-color: #99d558;
+  grid-area: label9;
+}
+#item-10 {
+  background-color: #d96d9f;
+  grid-area: label10;
+}
+#item-11 {
+  background-color: #675bfe;
+  grid-area: label11;
+}
+
+#item-12 {
+  background-color: #d96d9f;
+  grid-area: label12;
+}
+
+#item-13 {
+  background-color: #6fbc59;
+  grid-area: label13;
+}
+
+#item-14 {
+  background-color: #db9b5a;
+  grid-area: label14;
+}
+
+#item-15 {
+  background-color: #fb57c6;
+  grid-area: label15;
+}
+
+#item-16 {
+  background-color: #9aa79f;
+  grid-area: label16;
+}
+#item-17 {
+  background-color: #6fbc59;
+  grid-area: label17;
+}
+#item-18 {
+  background-color: #f5dd89;
+  grid-area: label18;
+}
+#item-19 {
+  background-color: #fb57c6;
+  grid-area: label19;
 }
