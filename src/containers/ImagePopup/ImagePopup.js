@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./ImagePopup.css";
-import herta from "../assets/images/herta.jpg";
+import herta from "../../assets/images/herta.jpg";
 
 function ImagePopup() {
   const [isImageOpen, setIsImageOpen] = useState(false);
@@ -19,7 +19,7 @@ function ImagePopup() {
       <div className="image-container">
         <img
           src={herta}
-          alt="Original Image"
+          alt=""
           className="original-image"
           onClick={handleImageClick}
         />
@@ -28,7 +28,7 @@ function ImagePopup() {
             <div className="popup-container">
               <img
                 src={herta}
-                alt="Popup Image"
+                alt=""
                 className="popup-image"
                 onClick={(e) => {
                   e.stopPropagation();
