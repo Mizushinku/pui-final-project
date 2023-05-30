@@ -1,0 +1,23 @@
+.track-container {
+  height: 50vh;
+  width: 100vw;
+  background-color: black;
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  user-select: none;
+}
+
+.image-track {
+  display: flex;
+  gap: 4vmin;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+.image-track > .image {
+  height: 40vmin;
+  width: 32vmin;
+  object-fit: cover;
+}
