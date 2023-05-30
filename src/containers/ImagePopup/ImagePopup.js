@@ -36,26 +36,66 @@ function ImagePopup() {
               />
             </div>
             <div class="angry-grid">
-              <div id="item-0">Title: </div>
-              <div id="item-1">&nbsp;</div>
-              <div id="item-2">Caption: </div>
-              <div id="item-3">&nbsp;</div>
-              <div id="item-4">Prompt:</div>
-              <div id="item-5">&nbsp;</div>
-              <div id="item-6">Negative Prompt:</div>
-              <div id="item-7">&nbsp;</div>
-              <div id="item-8">Model:</div>
-              <div id="item-9">&nbsp;</div>
-              <div id="item-10">VAE:</div>
-              <div id="item-11">&nbsp;</div>
-              <div id="item-12">Seed:</div>
-              <div id="item-13">&nbsp;</div>
-              <div id="item-14">Steps:</div>
-              <div id="item-15">&nbsp;</div>
-              <div id="item-16">Sampler:</div>
-              <div id="item-17">&nbsp;</div>
-              <div id="item-18">CFG Scale:</div>
-              <div id="item-19">&nbsp;</div>
+              <div id="item-0" className="grid-item">
+                Title:{" "}
+              </div>
+              <div id="item-1" className="grid-item">
+                &nbsp;
+              </div>
+              <div id="item-2" className="grid-item">
+                Caption:{" "}
+              </div>
+              <div id="item-3" className="grid-item">
+                &nbsp;
+              </div>
+              <div id="item-4" className="grid-item">
+                Prompt:
+              </div>
+              <div id="item-5" className="grid-item">
+                &nbsp;
+              </div>
+              <div id="item-6" className="grid-item">
+                Negative Prompt:
+              </div>
+              <div id="item-7" className="grid-item">
+                &nbsp;
+              </div>
+              <div id="item-8" className="grid-item">
+                Model:
+              </div>
+              <div id="item-9" className="grid-item">
+                &nbsp;
+              </div>
+              <div id="item-10" className="grid-item">
+                VAE:
+              </div>
+              <div id="item-11" className="grid-item">
+                &nbsp;
+              </div>
+              <div id="item-12" className="grid-item">
+                Seed:
+              </div>
+              <div id="item-13" className="grid-item">
+                &nbsp;
+              </div>
+              <div id="item-14" className="grid-item">
+                Steps:
+              </div>
+              <div id="item-15" className="grid-item">
+                &nbsp;
+              </div>
+              <div id="item-16" className="grid-item">
+                Sampler:
+              </div>
+              <div id="item-17" className="grid-item">
+                &nbsp;
+              </div>
+              <div id="item-18" className="grid-item">
+                CFG Scale:
+              </div>
+              <div id="item-19" className="grid-item">
+                &nbsp;
+              </div>
             </div>
           </div>
         )}
