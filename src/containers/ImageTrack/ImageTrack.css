@@ -16,7 +16,7 @@
   top: 50%;
 }
 
-.image-track > .image {
+.image-track .image {
   height: 40vmin;
   width: 32vmin;
   object-fit: cover;
