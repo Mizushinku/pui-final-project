@@ -87,9 +87,8 @@ const ImageTrack = (props) => {
     const images = [angel, amiya, kirara, sakura, shionn];
     const n = images.length;
     return images.map((src, index) => (
-      <div>
+      <div key={index}>
         <img
-          key={index}
           data-index={index}
           className="image"
           src={src}

@@ -5,16 +5,22 @@ import appRoutes from "./shared/appRoutes";
 import Home from "./containers/Home/Home";
 import Login from "./containers/Login/Login";
 import UploadImage from "./containers/Upload/Upload";
+import { createContext, useState } from "react";
+
+export const userContext = createContext();
 
 function App() {
+  const [currUser, setCurrUser] = useState(undefined);
   return (
     <div>
-      <Navigation></Navigation>
-      <Routes>
-        <Route path={appRoutes.home} element={<Home />} />
-        <Route path={appRoutes.login} element={<Login />} />
-        <Route path={appRoutes.upload} element={<UploadImage />} />
-      </Routes>
+      <userContext.Provider value={{ currUser, setCurrUser }}>
+        <Navigation></Navigation>
+        <Routes>
+          <Route path={appRoutes.home} element={<Home />} />
+          <Route path={appRoutes.login} element={<Login />} />
+          <Route path={appRoutes.upload} element={<UploadImage />} />
+        </Routes>
+      </userContext.Provider>
     </div>
   );
 }

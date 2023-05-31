@@ -21,8 +21,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -35,4 +35,4 @@ root.render(
 
 reportWebVitals();
 
-export default db;
+export { firebaseApp, db };
