@@ -8,6 +8,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { BrowserRouter } from "react-router-dom";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 const firebaseConfig = {
   apiKey: "AIzaSyB0VZSs-yGOsEadSCobN-1HVWC2wvc0B5k",
   authDomain: "pui-final-3bc90.firebaseapp.com",

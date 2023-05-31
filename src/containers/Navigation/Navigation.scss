@@ -1,0 +1,17 @@
+#btn-login {
+  --c: white;
+  --hc: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border: 0.3rem solid var(--hc);
+  border-radius: 0.5rem;
+  color: var(--c);
+  text-transform: uppercase;
+  background-color: var(--hc);
+  transition: 0.25s;
+
+  &:hover {
+    color: var(--hc);
+    box-shadow: inset 6em 0 var(--c);
+  }
+}
