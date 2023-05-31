@@ -127,7 +127,7 @@ const ImageTrack = (props) => {
           {renderImages()}
         </div>
       </div>
-      {popupImgSrc && <ImagePopup src={popupImgSrc} closeImage={closeImage} />}
+      {popupImgSrc && <ImagePopup info={popupImgSrc} closeImage={closeImage} />}
     </div>
   );
 };

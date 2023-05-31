@@ -1,53 +1,116 @@
 import React, { useState } from "react";
-import EXIF from "exif-js";
-import testImg from "./08682-2023-05-19.png";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
-async function image_data() {
-  try {
-    let image = testImg;
-    let textinfo = await read_info_from_image(image);
-    console.log(textinfo);
-  } catch (error) {
-    console.error("Error processing image:", error);
-  }
-}
-
-async function read_info_from_image(image) {
-  try {
-    let items = image["info"];
-    let textinfo = items["parameters"];
-    return textinfo;
-  } catch (error) {
-    return null;
-  }
-}
-
-function ImageUploader() {
+const UploadImage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [title, setTitle] = useState("");
+  const [caption, setCaption] = useState("");
+  const [prompt, setPrompt] = useState("");
+  const [negativePrompt, setNegativePrompt] = useState("");
+  const [model, setModel] = useState("");
+  const [sampler, setSampler] = useState("");
+  const [step, setStep] = useState("");
+  const [seed, setSeed] = useState("");
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
+  const handleImageUpload = (event) => {
+    const image = event.target.files[0];
+    setSelectedImage(image);
   };
 
-  const handleUpload = () => {
-    // 在這裡處理上傳圖片的邏輯，例如將圖片送到伺服器
-    if (selectedImage) {
-      console.log("上傳圖片:", selectedImage);
-      // 在此執行上傳圖片的相關操作
-      image_data();
-    } else {
-      console.log("請選擇要上傳的圖片");
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // 在這裡處理表單提交的邏輯
   };
 
   return (
     <div>
-      <h2>圖片上傳</h2>
-      <input type="file" onChange={handleImageChange} />
-      <button onClick={handleUpload}>上傳</button>
+      <h2>上傳圖片</h2>
+      <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label for="image">圖片選擇器：</Label>
+          <Input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageUpload}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="title">標題：</Label>
+          <Input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="caption">標語：</Label>
+          <Input
+            type="text"
+            id="caption"
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="prompt">Prompt：</Label>
+          <Input
+            type="text"
+            id="prompt"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="negativePrompt">Negative Prompt：</Label>
+          <Input
+            type="text"
+            id="negativePrompt"
+            value={negativePrompt}
+            onChange={(e) => setNegativePrompt(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="model">Model：</Label>
+          <Input
+            type="text"
+            id="model"
+            value={model}
+            onChange={(e) => setModel(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="sampler">Sampler：</Label>
+          <Input
+            type="text"
+            id="sampler"
+            value={sampler}
+            onChange={(e) => setSampler(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="step">Step：</Label>
+          <Input
+            type="text"
+            id="step"
+            value={step}
+            onChange={(e) => setStep(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="seed">種子：</Label>
+          <Input
+            type="text"
+            id="seed"
+            value={seed}
+            onChange={(e) => setSeed(e.target.value)}
+          />
+        </FormGroup>
+        <Button type="submit">上傳</Button>
+      </Form>
     </div>
   );
-}
+};
 
-export default ImageUploader;
+export default UploadImage;

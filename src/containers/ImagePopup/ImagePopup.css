@@ -38,7 +38,7 @@
   position: fixed;
   left: 35%;
 
-  grid-template-rows: 1fr 2fr 2fr 2fr 1fr 1fr;
+  grid-template-rows: 1fr 2fr 3fr 3fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 
   grid-template-areas:
@@ -65,71 +65,97 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+  word-wrap: break-word;
 }
 
 #item-0 {
   grid-area: label0;
+  color: gray;
 }
 #item-1 {
   grid-area: label1;
+  font-size: 24px;
+  font-weight: bold;
 }
 #item-2 {
   grid-area: label2;
+  color: gray;
 }
 #item-3 {
   grid-area: label3;
 }
 #item-4 {
   grid-area: label4;
+  color: gray;
 }
 #item-5 {
   grid-area: label5;
 }
 #item-6 {
   grid-area: label6;
+  color: gray;
 }
 #item-7 {
   grid-area: label7;
 }
 #item-8 {
   grid-area: label8;
+  color: gray;
+  border-right: 0;
 }
 #item-9 {
   grid-area: label9;
+  border-left: 0;
 }
 #item-10 {
   grid-area: label10;
+  color: gray;
+  border-right: 0;
 }
 #item-11 {
   grid-area: label11;
+  border-left: 0;
 }
 
 #item-12 {
   grid-area: label12;
+  color: gray;
+  border-right: 0;
 }
 
 #item-13 {
   grid-area: label13;
+  border-left: 0;
 }
 
 #item-14 {
   grid-area: label14;
+  color: gray;
+  border-right: 0;
 }
 
 #item-15 {
   grid-area: label15;
+  border-left: 0;
 }
 
 #item-16 {
   grid-area: label16;
+  color: gray;
+  border-right: 0;
 }
 #item-17 {
   grid-area: label17;
+  border-left: 0;
 }
 #item-18 {
   grid-area: label18;
+  color: gray;
+  border-right: 0;
 }
 #item-19 {
   grid-area: label19;
+  border-left: 0;
 }
