@@ -6,6 +6,7 @@ import sakura from "../../assets/images/sakura.jpg";
 import shionn from "../../assets/images/shionn.png";
 import angel from "../../assets/images/angel.png";
 import ImagePopup from "../ImagePopup/ImagePopup";
+import ImagesInfo from "../../assets/ImagesInfo/ImagesInfo";
 
 const ImageTrack = (props) => {
   const [rollingPos, setRollingPos] = useState(-50);
@@ -76,15 +77,20 @@ const ImageTrack = (props) => {
   };
 
   const handleImageClick = (targetImg) => {
-    setPopupImgSrc(targetImg.src);
+    //setPopupImgSrc(targetImg.src);
+    let image_info = ImagesInfo[targetImg.dataset.index];
+    image_info["src"] = targetImg.src;
+    setPopupImgSrc(image_info);
   };
 
   const renderImages = () => {
     const images = [angel, amiya, kirara, sakura, shionn];
     const n = images.length;
     return images.map((src, index) => (
-      <div key={index}>
+      <div>
         <img
+          key={index}
+          data-index={index}
           className="image"
           src={src}
           alt=""
