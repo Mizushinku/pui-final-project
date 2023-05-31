@@ -1,10 +1,16 @@
+import { Route, Routes } from "react-router";
 import "./App.css";
-import ImageTrack from "./containers/ImageTrack/ImageTrack";
+import Navigation from "./containers/Navigation/Navigation";
+import appRoutes from "./shared/appRoutes";
+import Home from "./containers/Home/Home";
 
 function App() {
   return (
     <div>
-      <ImageTrack></ImageTrack>
+      <Navigation></Navigation>
+      <Routes>
+        <Route path={appRoutes.home} element={<Home />} />
+      </Routes>
     </div>
   );
 }
