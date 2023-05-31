@@ -1,0 +1,14 @@
+.form-container {
+  padding: 0 15%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.preview-image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-col {
+  width: 40%;
+}
