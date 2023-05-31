@@ -7,7 +7,7 @@ function ImagePopup(props) {
       <div className="popup-overlay" onClick={props.closeImage}>
         <div className="popup-container">
           <img
-            src={props.src}
+            src={props.src["src"]}
             alt=""
             className="popup-image"
             onClick={(e) => {
@@ -17,13 +17,13 @@ function ImagePopup(props) {
         </div>
         <div className="angry-grid">
           <div id="item-0" className="grid-item">
-            Title:{" "}
+            Title:
           </div>
           <div id="item-1" className="grid-item">
             &nbsp;
           </div>
           <div id="item-2" className="grid-item">
-            Caption:{" "}
+            Caption:
           </div>
           <div id="item-3" className="grid-item">
             &nbsp;
@@ -47,7 +47,7 @@ function ImagePopup(props) {
             &nbsp;
           </div>
           <div id="item-10" className="grid-item">
-            VAE:
+            CFG Scale:
           </div>
           <div id="item-11" className="grid-item">
             &nbsp;
@@ -71,7 +71,7 @@ function ImagePopup(props) {
             &nbsp;
           </div>
           <div id="item-18" className="grid-item">
-            CFG Scale:
+            按讚數:
           </div>
           <div id="item-19" className="grid-item">
             &nbsp;

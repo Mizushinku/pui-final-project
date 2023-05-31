@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import EXIF from "exif-js";
 import testImg from "./08682-2023-05-19.png";
 
 async function image_data() {
