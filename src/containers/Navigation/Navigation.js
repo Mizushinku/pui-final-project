@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { NavLink, Navbar, NavbarBrand } from "reactstrap";
 import { NavLink as RouterNavLink } from "react-router-dom";
-import { userContext } from "../../App";
+import { userCtx } from "../../contexts/userContext";
 import { getAuth, signOut } from "firebase/auth";
 
 import appRoutes from "../../shared/appRoutes";
@@ -9,14 +9,13 @@ import appRoutes from "../../shared/appRoutes";
 import "./Navigation.scss";
 
 const Navigation = () => {
-  const { currUser, setCurrUser } = useContext(userContext);
+  const { currUser } = useContext(userCtx);
   const auth = getAuth();
 
   const handleLogout = () => {
     console.log("on Logout...");
     signOut(auth).then(() => {
       console.log("Logout success.");
-      setCurrUser(undefined);
     });
   };
 

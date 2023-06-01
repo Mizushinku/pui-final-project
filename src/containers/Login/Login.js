@@ -1,15 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import firebase from "firebase/compat/app";
 import * as firebaseui from "firebaseui";
 import { getAuth } from "firebase/auth";
 import appRoutes from "../../shared/appRoutes";
 import { useNavigate } from "react-router";
-import { userContext } from "../../App";
 import "firebaseui/dist/firebaseui.css";
 import "./Login.scss";
 
 const Login = () => {
-  const { setCurrUser } = useContext(userContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,7 +18,6 @@ const Login = () => {
       callbacks: {
         signInSuccessWithAuthResult: function (authResult) {
           // Action if the user is authenticated successfully
-          setCurrUser(authResult.user);
           navigate(appRoutes.home);
         },
         uiShown: function () {

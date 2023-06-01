@@ -1,4 +1,6 @@
+import React from "react";
 import { Route, Routes } from "react-router";
+import { UserProvider } from "./contexts/userContext";
 import "./App.css";
 import Navigation from "./containers/Navigation/Navigation";
 import appRoutes from "./shared/appRoutes";
@@ -7,15 +9,15 @@ import Login from "./containers/Login/Login";
 import UploadImage from "./containers/Upload/Upload";
 import ToS from "./containers/Login/ToS";
 import PrivacyPolicy from "./containers/Login/PrivacyPolicy";
-import { createContext, useState } from "react";
 
-export const userContext = createContext();
+// export const userContext = createContext();
 
 function App() {
-  const [currUser, setCurrUser] = useState(undefined);
+  // const [currUser, setCurrUser] = useState(undefined);
   return (
     <div className="d-flex fluid flex-column h-100">
-      <userContext.Provider value={{ currUser, setCurrUser }}>
+      {/* <userContext.Provider value={{ currUser, setCurrUser }}> */}
+      <UserProvider>
         <Navigation></Navigation>
         <Routes>
           <Route path={appRoutes.home} element={<Home />} />
@@ -24,7 +26,9 @@ function App() {
           <Route path={appRoutes.tos} element={<ToS />} />
           <Route path={appRoutes.pp} element={<PrivacyPolicy />} />
         </Routes>
-      </userContext.Provider>
+      </UserProvider>
+
+      {/* </userContext.Provider> */}
     </div>
   );
 }
