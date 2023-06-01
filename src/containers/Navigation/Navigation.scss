@@ -19,3 +19,16 @@
     box-shadow: inset 6em 0 var(--c);
   }
 }
+
+#user-menu-dropdown {
+  span {
+    cursor: pointer;
+
+    img {
+      height: 40px;
+    }
+  }
+  .dropdown-divider {
+    background-color: rgba(255, 255, 255, 0.705);
+  }
+}

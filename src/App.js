@@ -7,6 +7,7 @@ import appRoutes from "./shared/appRoutes";
 import Home from "./containers/Home/Home";
 import Login from "./containers/Login/Login";
 import UploadImage from "./containers/Upload/Upload";
+import UserPage from "./containers/UserPage/UserPage";
 import ToS from "./containers/Login/ToS";
 import PrivacyPolicy from "./containers/Login/PrivacyPolicy";
 
@@ -23,6 +24,7 @@ function App() {
           <Route path={appRoutes.home} element={<Home />} />
           <Route path={appRoutes.login} element={<Login />} />
           <Route path={appRoutes.upload} element={<UploadImage />} />
+          <Route path={appRoutes.userPage} element={<UserPage />} />
           <Route path={appRoutes.tos} element={<ToS />} />
           <Route path={appRoutes.pp} element={<PrivacyPolicy />} />
         </Routes>
