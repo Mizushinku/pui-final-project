@@ -19,7 +19,15 @@ const Navigation = () => {
         AI Art Gallery
       </NavbarBrand>
       {currUser ? (
-        currUser.displayName
+        <NavLink
+          className="d-flex align-items-center"
+          tag={RouterNavLink}
+          to={appRoutes.login}
+        >
+          <button id="btn-login" className="px-4 py-1">
+            Logout(W.I.P)
+          </button>
+        </NavLink>
       ) : (
         <NavLink
           className="d-flex align-items-center"

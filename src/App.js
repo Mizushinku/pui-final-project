@@ -12,7 +12,7 @@ export const userContext = createContext();
 function App() {
   const [currUser, setCurrUser] = useState(undefined);
   return (
-    <div>
+    <div className="d-flex fluid flex-column h-100">
       <userContext.Provider value={{ currUser, setCurrUser }}>
         <Navigation></Navigation>
         <Routes>
