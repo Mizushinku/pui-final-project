@@ -1,3 +1,7 @@
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/mixins";
+
 .navbar {
   border-bottom: 0.2rem solid black;
 }
@@ -30,5 +34,10 @@
   }
   .dropdown-divider {
     background-color: rgba(255, 255, 255, 0.705);
+  }
+
+  .active {
+    color: $dropdown-dark-color;
+    background-color: $dropdown-dark-bg;
   }
 }
