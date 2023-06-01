@@ -2,12 +2,23 @@ import React, { useContext } from "react";
 import { NavLink, Navbar, NavbarBrand } from "reactstrap";
 import { NavLink as RouterNavLink } from "react-router-dom";
 import { userContext } from "../../App";
+import { getAuth, signOut } from "firebase/auth";
+
 import appRoutes from "../../shared/appRoutes";
 
 import "./Navigation.scss";
 
 const Navigation = () => {
-  const { currUser } = useContext(userContext);
+  const { currUser, setCurrUser } = useContext(userContext);
+  const auth = getAuth();
+
+  const handleLogout = () => {
+    console.log("on Logout...");
+    signOut(auth).then(() => {
+      console.log("Logout success.");
+      setCurrUser(undefined);
+    });
+  };
 
   return (
     <Navbar>
@@ -19,15 +30,11 @@ const Navigation = () => {
         AI Art Gallery
       </NavbarBrand>
       {currUser ? (
-        <NavLink
-          className="d-flex align-items-center"
-          tag={RouterNavLink}
-          to={appRoutes.login}
-        >
-          <button id="btn-login" className="px-4 py-1">
+        <div className="d-flex align-items-center">
+          <button className="px-4 py-1" onClick={handleLogout}>
             Logout(W.I.P)
           </button>
-        </NavLink>
+        </div>
       ) : (
         <NavLink
           className="d-flex align-items-center"

@@ -5,6 +5,8 @@ import appRoutes from "./shared/appRoutes";
 import Home from "./containers/Home/Home";
 import Login from "./containers/Login/Login";
 import UploadImage from "./containers/Upload/Upload";
+import ToS from "./containers/Login/ToS";
+import PrivacyPolicy from "./containers/Login/PrivacyPolicy";
 import { createContext, useState } from "react";
 
 export const userContext = createContext();
@@ -19,6 +21,8 @@ function App() {
           <Route path={appRoutes.home} element={<Home />} />
           <Route path={appRoutes.login} element={<Login />} />
           <Route path={appRoutes.upload} element={<UploadImage />} />
+          <Route path={appRoutes.tos} element={<ToS />} />
+          <Route path={appRoutes.pp} element={<PrivacyPolicy />} />
         </Routes>
       </userContext.Provider>
     </div>

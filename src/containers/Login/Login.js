@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import firebase from "firebase/compat/app";
 import * as firebaseui from "firebaseui";
-import { firebaseApp } from "../../index";
 import { getAuth } from "firebase/auth";
 import appRoutes from "../../shared/appRoutes";
 import { useNavigate } from "react-router";
@@ -14,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const auth = getAuth(firebaseApp);
+    const auth = getAuth();
     const ui =
       firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(auth);
     ui.start("#firebaseui-auth-container", {
@@ -35,13 +34,14 @@ const Login = () => {
           provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         },
       ],
-      tosUrl: appRoutes.home, // URL to you terms and conditions.
+      tosUrl: appRoutes.tos, // URL to you terms and conditions.
+      privacyPolicyUrl: appRoutes.pp,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div id="bg-login">
+    <div id="bg-login" className="pt-5">
       <div id="firebaseui-auth-container"></div>
     </div>
   );
