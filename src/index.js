@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 import { BrowserRouter } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -23,6 +24,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
+const storage = getStorage();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -35,4 +37,4 @@ root.render(
 
 reportWebVitals();
 
-export { firebaseApp, db };
+export { firebaseApp, db, storage };

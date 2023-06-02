@@ -2,13 +2,28 @@ import React, { useEffect } from "react";
 import firebase from "firebase/compat/app";
 import * as firebaseui from "firebaseui";
 import { getAuth } from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import appRoutes from "../../shared/appRoutes";
 import { useNavigate } from "react-router";
+import { db } from "../../index";
 import "firebaseui/dist/firebaseui.css";
 import "./Login.scss";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  async function initUserData(user) {
+    const userCollection = "users";
+    const docSnap = await getDoc(doc(db, userCollection, user.uid));
+    if (!docSnap.exists()) {
+      await setDoc(
+        doc(db, userCollection, user.uid),
+        { uploaded: [] },
+        { merge: true }
+      );
+    }
+    navigate(appRoutes.home);
+  }
 
   useEffect(() => {
     const auth = getAuth();
@@ -18,7 +33,7 @@ const Login = () => {
       callbacks: {
         signInSuccessWithAuthResult: function (authResult) {
           // Action if the user is authenticated successfully
-          navigate(appRoutes.home);
+          initUserData(authResult.user);
         },
         uiShown: function () {
           // This is what should happen when the form is full loaded. In this example, I hide the loader element.
