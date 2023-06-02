@@ -34,6 +34,7 @@ const UploadImage = () => {
       seed: seed,
     };
     console.log(image_ingo);
+    console.log(selectedImage);
   };
 
   return (

@@ -5,6 +5,7 @@
 }
 
 .popup-overlay {
+  z-index: 100;
   position: fixed;
   top: 0;
   left: 0;
@@ -32,6 +33,17 @@
   object-fit: contain;
 }
 
+.colored-svg {
+  stroke: black; /* 邊框顏色 */
+  stroke-width: 20px; /* 邊框寬度 */
+  fill: white;
+  height: auto;
+}
+
+.colored-svg.fill {
+  fill: red;
+}
+
 .angry-grid {
   display: grid;
 
@@ -39,7 +51,7 @@
   left: 35%;
 
   grid-template-rows: 1fr 2fr 3fr 3fr 1fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 3fr 5fr 2fr 2fr 2fr 2fr;
 
   grid-template-areas:
     "label0 label1 label1 label1 label1 label1"
@@ -63,8 +75,7 @@
 
 .grid-item {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: safe center;
   overflow-y: auto;
   overflow-wrap: anywhere;
   word-wrap: break-word;

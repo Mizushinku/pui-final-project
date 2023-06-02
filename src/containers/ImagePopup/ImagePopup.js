@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ImagePopup.css";
+import { ReactComponent as Heart } from "../../assets/icons/favorite_FILL1_wght400_GRAD0_opsz48.svg";
 
 function ImagePopup(props) {
+  const [isFilled, setIsFilled] = useState(false);
+
+  const handleClick = () => {
+    setIsFilled(!isFilled);
+  };
   return (
     <div>
       <div className="popup-overlay" onClick={props.closeImage}>
@@ -15,7 +21,12 @@ function ImagePopup(props) {
             }}
           />
         </div>
-        <div className="angry-grid">
+        <div
+          className="angry-grid"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <div id="item-0" className="grid-item">
             Title:
           </div>
@@ -59,19 +70,24 @@ function ImagePopup(props) {
             {props.info["seed"]}
           </div>
           <div id="item-14" className="grid-item">
-            Steps:
-          </div>
-          <div id="item-15" className="grid-item">
-            {props.info["step"]}
-          </div>
-          <div id="item-16" className="grid-item">
             Sampler:
           </div>
-          <div id="item-17" className="grid-item">
+          <div id="item-15" className="grid-item">
             {props.info["sampler"]}
           </div>
+          <div id="item-16" className="grid-item">
+            Step:
+          </div>
+          <div id="item-17" className="grid-item">
+            {props.info["step"]}
+          </div>
           <div id="item-18" className="grid-item">
-            按讚數:
+            <Heart
+              className={`colored-svg ${isFilled ? "fill" : ""}`}
+              onClick={() => {
+                handleClick();
+              }}
+            />
           </div>
           <div id="item-19" className="grid-item">
             1234

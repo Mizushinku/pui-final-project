@@ -1,5 +1,12 @@
+import amiya from "../../assets/images/amiya.jpg";
+import kirara from "../../assets/images/kirara.png";
+import sakura from "../../assets/images/sakura.jpg";
+import shionn from "../../assets/images/shionn.png";
+import angel from "../../assets/images/angel.png";
 export default [
   {
+    id: 1,
+    src: amiya,
     title: "Amiya",
     caption: "A cute donkey",
     prompt:
@@ -11,8 +18,11 @@ export default [
     step: 28,
     seed: 894365119,
     cfg: 5,
+    fav: 253,
   },
   {
+    id: 2,
+    src: kirara,
     title: "suisei",
     caption: "kyou mo kawaii",
     prompt:
@@ -24,8 +34,11 @@ export default [
     step: 28,
     seed: 4271914108,
     cfg: 5,
+    fav: 855,
   },
   {
+    id: 3,
+    src: angel,
     title: "angel",
     caption: "angel steps on water",
     prompt:
@@ -37,8 +50,11 @@ export default [
     step: 28,
     seed: "1382263468",
     cfg: 5,
+    fav: 8461,
   },
   {
+    id: 4,
+    src: kirara,
     title: "herta",
     caption: "kurukuru",
     prompt:
@@ -50,8 +66,11 @@ export default [
     step: 28,
     seed: 4001569425,
     cfg: 5,
+    fav: 366,
   },
   {
+    id: 5,
+    src: kirara,
     title: "kirara",
     caption: "nimotu desu~",
     prompt:
@@ -63,8 +82,11 @@ export default [
     step: 28,
     seed: 1780333147,
     cfg: 5,
+    fav: 8464,
   },
   {
+    id: 6,
+    src: sakura,
     title: "sakura",
     caption: "fox girl with cherry blossom",
     prompt:
@@ -76,8 +98,11 @@ export default [
     step: 28,
     seed: 3087560994,
     cfg: 5,
+    fav: 565,
   },
   {
+    id: 7,
+    src: shionn,
     title: "shionn",
     caption: "purple is best",
     prompt:
@@ -89,5 +114,6 @@ export default [
     step: 28,
     seed: 2774103155,
     cfg: 5,
+    fav: 1315,
   },
 ];
