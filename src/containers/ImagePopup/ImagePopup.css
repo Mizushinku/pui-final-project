@@ -81,6 +81,11 @@
   word-wrap: break-word;
 }
 
+.grid-inner {
+  display: flex;
+  align-items: center;
+}
+
 #item-0 {
   grid-area: label0;
   color: gray;
@@ -169,4 +174,5 @@
 #item-19 {
   grid-area: label19;
   border-left: 0;
+  user-select: none;
 }

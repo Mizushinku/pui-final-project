@@ -34,69 +34,70 @@ function ImagePopup(props) {
           }}
         >
           <div id="item-0" className="grid-item">
-            Title:
+            <div className="grid-inner">Title:</div>
           </div>
           <div id="item-1" className="grid-item">
-            {props.info["title"]}
+            <div className="grid-inner">{props.info["title"]}</div>
           </div>
           <div id="item-2" className="grid-item">
-            Caption:
+            <div className="grid-inner">Caption:</div>
           </div>
           <div id="item-3" className="grid-item">
-            {props.info["caption"]}
+            <div className="grid-inner">{props.info["caption"]}</div>
           </div>
           <div id="item-4" className="grid-item">
-            Prompt:
+            <div className="grid-inner">Prompt:</div>
           </div>
           <div id="item-5" className="grid-item">
             {props.info["prompt"]}
           </div>
           <div id="item-6" className="grid-item">
-            Negative Prompt:
+            <div className="grid-inner">Negative Prompt:</div>
           </div>
           <div id="item-7" className="grid-item">
             {props.info["negativePrompt"]}
           </div>
           <div id="item-8" className="grid-item">
-            Model:
+            <div className="grid-inner">Model:</div>
           </div>
           <div id="item-9" className="grid-item">
-            {props.info["model"]}
+            <div className="grid-inner">{props.info["model"]}</div>
           </div>
           <div id="item-10" className="grid-item">
-            CFG Scale:
+            <div className="grid-inner">CFG Scale:</div>
           </div>
           <div id="item-11" className="grid-item">
-            {props.info["cfg"]}
+            <div className="grid-inner">{props.info["cfg"]}</div>
           </div>
           <div id="item-12" className="grid-item">
-            Seed:
+            <div className="grid-inner">Seed:</div>
           </div>
           <div id="item-13" className="grid-item">
-            {props.info["seed"]}
+            <div className="grid-inner">{props.info["seed"]}</div>
           </div>
           <div id="item-14" className="grid-item">
-            Sampler:
+            <div className="grid-inner">Sampler:</div>
           </div>
           <div id="item-15" className="grid-item">
-            {props.info["sampler"]}
+            <div className="grid-inner">{props.info["sampler"]}</div>
           </div>
           <div id="item-16" className="grid-item">
-            Step:
+            <div className="grid-inner">Step:</div>
           </div>
           <div id="item-17" className="grid-item">
-            {props.info["step"]}
+            <div className="grid-inner">{props.info["step"]}</div>
           </div>
           <div id="item-18" className="grid-item">
             <Heart
               className={`colored-svg ${isFilled ? "fill" : ""}`}
+              style={{ cursor: "pointer" }}
               onClick={() => {
                 handleClick();
               }}
             />
           </div>
           <div id="item-19" className="grid-item">
-            {favCnt}
+            <div className="grid-inner">{favCnt}</div>
           </div>
         </div>
       </div>
