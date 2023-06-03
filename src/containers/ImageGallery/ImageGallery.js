@@ -45,30 +45,32 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              position: "relative",
             }}
           >
-            <img
-              src={info.src}
-              alt={info.caption}
-              style={{
-                maxWidth: "100%",
-                cursor: "pointer",
-                objectFit: "cover",
-                userSelect: "none",
-              }}
-              onClick={() => {
-                console.log(info.title);
-                setPopupImgSrc(info);
-              }}
-            />
-            <Heart
-              className={`colored-svg ${isFilled[info.id] ? "fill" : ""}`}
-              style={{ position: "absolute", bottom: "10px", right: "10px" }}
-              onClick={(e) => {
-                // handleClick(info.id);
-              }}
-            />
+            <div style={{ position: "relative" }}>
+              <img
+                src={info.src}
+                alt={info.caption}
+                style={{
+                  maxWidth: "100%",
+                  cursor: "pointer",
+                  objectFit: "cover",
+                  userSelect: "none",
+                }}
+                onClick={() => {
+                  console.log(info.title);
+                  setPopupImgSrc(info);
+                }}
+              />
+
+              <Heart
+                className={`colored-svg ${isFilled[info.id] ? "fill" : ""}`}
+                style={{ position: "absolute", bottom: "10px", right: "10px" }}
+                onClick={(e) => {
+                  // handleClick(info.id);
+                }}
+              />
+            </div>
           </Col>
         ))}
       </Row>
