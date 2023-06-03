@@ -24,12 +24,12 @@
   position: fixed;
   left: 10%;
   width: 20%;
-  height: 500px;
+  height: 80vh;
 }
 
 .popup-image {
-  max-width: 500px;
-  max-height: 500px;
+  max-width: 30vw;
+  max-height: 80vh;
   object-fit: contain;
 }
 
@@ -48,7 +48,7 @@
   display: grid;
 
   position: fixed;
-  left: 35%;
+  right: 10%;
 
   grid-template-rows: 1fr 2fr 3fr 3fr 1fr 1fr;
   grid-template-columns: 3fr 5fr 2fr 2fr 2fr 2fr;
@@ -62,8 +62,8 @@
     "label14 label15 label16 label17 label18 label19";
 
   gap: 0px;
-  width: 50%;
-  height: 500px;
+  width: 50vw;
+  height: 80vh;
 
   text-align: center;
   background-color: white;
@@ -79,6 +79,11 @@
   overflow-y: auto;
   overflow-wrap: anywhere;
   word-wrap: break-word;
+}
+
+.grid-inner {
+  display: flex;
+  align-items: center;
 }
 
 #item-0 {
@@ -169,4 +174,5 @@
 #item-19 {
   grid-area: label19;
   border-left: 0;
+  user-select: none;
 }

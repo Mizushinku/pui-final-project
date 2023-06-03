@@ -20,6 +20,7 @@ const UploadImage = () => {
     sampler: "",
     step: "",
     seed: "",
+    cfg: "",
     fav: 0,
   });
   const [modal, setModal] = useState(false);
@@ -41,6 +42,7 @@ const UploadImage = () => {
       sampler: "",
       step: "",
       seed: "",
+      cfg: "",
       fav: 0,
     });
   }, [location]);
@@ -162,12 +164,13 @@ const UploadImage = () => {
       ...prev,
       step: af_steps,
       seed: af_seed,
+      cfg: af_cfg,
       model: af_model,
       sampler: af_sampler,
       negativePrompt: af_negativePrompt,
       prompt: af_prompt,
     }));
-    console.log(info);
+    setAutoFill("");
   };
 
   return (
@@ -258,7 +261,7 @@ const UploadImage = () => {
               <Label for="prompt">Prompt：</Label>
               <Input
                 type="textarea"
-                rows="4"
+                rows="3"
                 id="prompt"
                 value={info.prompt}
                 // onChange={(e) => setPrompt(e.target.value)}
@@ -271,7 +274,7 @@ const UploadImage = () => {
               <Label for="negativePrompt">Negative Prompt：</Label>
               <Input
                 type="textarea"
-                rows="4"
+                rows="3"
                 id="negativePrompt"
                 value={info.negativePrompt}
                 // onChange={(e) => setNegativePrompt(e.target.value)}
@@ -313,6 +316,18 @@ const UploadImage = () => {
                 type="number"
                 id="step"
                 value={info.step}
+                // onChange={(e) => setStep(e.target.value)}
+                onChange={(e) =>
+                  setInfo((prev) => ({ ...prev, step: e.target.value }))
+                }
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="cfg">CFG Scale：</Label>
+              <Input
+                type="number"
+                id="cfg"
+                value={info.cfg}
                 // onChange={(e) => setStep(e.target.value)}
                 onChange={(e) =>
                   setInfo((prev) => ({ ...prev, step: e.target.value }))
