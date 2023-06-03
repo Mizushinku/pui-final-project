@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import "./ImagePopup.css";
+import { UpdateLike } from "./UpdateLike";
 import { ReactComponent as Heart } from "../../assets/icons/favorite_FILL1_wght400_GRAD0_opsz48.svg";
 
 function ImagePopup(props) {
   const [isFilled, setIsFilled] = useState(false);
 
   const handleClick = () => {
+    //updata user collection and liked number
+    if (!isFilled) UpdateLike("21b53bb7-89f0-4c01-b351-942c3fce1129.png", "+");
+    else UpdateLike("21b53bb7-89f0-4c01-b351-942c3fce1129.png", "-");
     setIsFilled(!isFilled);
   };
   return (
@@ -90,7 +94,7 @@ function ImagePopup(props) {
             />
           </div>
           <div id="item-19" className="grid-item">
-            1234
+            {props.info["fav"]}
           </div>
         </div>
       </div>
