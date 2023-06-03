@@ -1,5 +1,5 @@
 import { storage } from "../../index";
-import { ref, getMetadata, updateMetadata } from "firebase/storage";
+import { ref, getMetadata, updateMetadata, listAll } from "firebase/storage";
 
 // 更新檔案 metadata 的範例
 export function UpdateLike(fileName, type, setFavCnt) {
@@ -51,3 +51,44 @@ export function UpdateLike(fileName, type, setFavCnt) {
       console.error("Error updating metadata:", error);
     });
 }
+/*
+export function addCFG2Metadata() {
+  // 取得 "images" 資料夾的參考
+  const imagesRef = ref(storage, "images");
+
+  // 使用 listAll 方法列出 "images" 資料夾下的所有檔案
+  listAll(imagesRef)
+    .then((res) => {
+      // 遍歷每個檔案的參考
+      res.items.forEach((itemRef) => {
+        // 更新檔案的 metadata
+        let random = Math.random();
+        let cfg = 5;
+        if (random < 0.5) {
+          cfg = 7;
+        }
+        getMetadata(itemRef)
+          .then((metadata) => {
+            // 更新 metadata
+            const newMetadata = {
+              ...metadata,
+              customMetadata: {
+                ...metadata.customMetadata,
+                cfg: cfg,
+              },
+            };
+            return updateMetadata(itemRef, newMetadata);
+          })
+          .then(() => {
+            console.log("Metadata updated successfully!");
+          })
+          .catch((error) => {
+            console.log("Failed to update metadata:", error);
+          });
+      });
+    })
+    .catch((error) => {
+      console.error("列出檔案時發生錯誤：", error);
+    });
+}
+*/
