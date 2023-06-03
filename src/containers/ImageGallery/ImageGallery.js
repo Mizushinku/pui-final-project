@@ -3,7 +3,7 @@ import { Container, Row, Col } from "reactstrap";
 import ImagePopup from "../ImagePopup/ImagePopup";
 import { ReactComponent as Heart } from "../../assets/icons/favorite_FILL1_wght400_GRAD0_opsz48.svg";
 
-const ImageGallery = ({ imgInfo }) => {
+const ImageGallery = ({ imgInfo, reachBottom }) => {
   const [popupImgSrc, setPopupImgSrc] = useState(undefined);
   const closeImage = (e) => {
     setPopupImgSrc(undefined);
@@ -17,11 +17,20 @@ const ImageGallery = ({ imgInfo }) => {
     setIsFilled(newIsFilled);
     console.log(id);
   };
+
+  const handleScroll = (e) => {
+    const ele = e.target;
+    if (ele.scrollTop + ele.clientHeight >= ele.scrollHeight) {
+      reachBottom();
+    }
+  };
+
   return (
     <Container
       fluid
       style={{ maxHeight: "70vh", overflow: "auto" }}
       className="gallery-container"
+      onScroll={handleScroll}
     >
       <Row sm="3" md="4" lg="5">
         {imgInfo.map((info, index) => (

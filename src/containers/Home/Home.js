@@ -16,6 +16,7 @@ const Home = () => {
   const [trackIamges, setTrackImages] = useState([]);
   const [recentImages, setRecentImages] = useState([]);
   const [lastVisible, setLastVisible] = useState(undefined);
+  const [noMore, setNoMore] = useState(false);
 
   useEffect(() => {
     getImageForTrack(
@@ -51,25 +52,29 @@ const Home = () => {
   };
 
   const getImageForGallery = async () => {
+    if (noMore) return;
     const n = 10;
     let qSnapshot = null;
+    let q = undefined;
     if (!lastVisible) {
-      const q = query(
+      q = query(
         collection(db, "files"),
         orderBy("timestamp", "desc"),
         limit(n)
       );
-      qSnapshot = await getDocs(q);
-      setLastVisible(qSnapshot.docs[qSnapshot.docs.length - 1]);
     } else {
-      const q = query(
+      q = query(
         collection(db, "files"),
         orderBy("timestamp", "desc"),
         startAfter(lastVisible),
         limit(n)
       );
-      qSnapshot = await getDocs(q);
     }
+    qSnapshot = await getDocs(q);
+    if (qSnapshot.docs.length < n) {
+      setNoMore(true);
+    }
+    setLastVisible(qSnapshot.docs[qSnapshot.docs.length - 1]);
     const images = qSnapshot.docs.map((doc) => doc.id);
     const promises = images.map((fileName) => {
       const fileRef = ref(storage, "images/" + fileName);
@@ -92,7 +97,10 @@ const Home = () => {
     <div>
       <ImageTrack images={trackIamges}></ImageTrack>
       <h1 className="fw-bold fs-1 text-center my-5">Recent Gallery</h1>
-      <ImageGallery imgInfo={recentImages}></ImageGallery>
+      <ImageGallery
+        imgInfo={recentImages}
+        reachBottom={getImageForGallery}
+      ></ImageGallery>
     </div>
   );
 };
