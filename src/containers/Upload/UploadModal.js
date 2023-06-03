@@ -63,6 +63,7 @@ const UploadModal = (props) => {
             () => {
               console.log("Successfully Update user's uploaded.");
               props.toggle();
+              props.setUploaded(true);
             },
             (error) => {
               console.log("update user's uploaded Failed", error);

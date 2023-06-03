@@ -1,8 +1,10 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Upload.css";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { userCtx } from "../../contexts/userContext";
 import UploadModal from "./UploadModal";
+import { useNavigate } from "react-router-dom";
+import appRoutes from "../../shared/appRoutes";
 
 const UploadImage = () => {
   const { currUser } = useContext(userCtx);
@@ -18,8 +20,18 @@ const UploadImage = () => {
   const [step, setStep] = useState("");
   const [seed, setSeed] = useState("");
   const [modal, setModal] = useState(false);
+  const [uploaded, setUploaded] = useState(false);
 
   const infoRef = useRef(undefined);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (uploaded) {
+      navigate(appRoutes.home);
+    }
+    // eslint-disable-next-line
+  }, [uploaded]);
 
   const toggle = () => {
     setModal((prev) => !prev);
@@ -169,6 +181,7 @@ const UploadImage = () => {
         user={currUser}
         file={selectedImage}
         infoRef={infoRef}
+        setUploaded={setUploaded}
       ></UploadModal>
     </div>
   );
