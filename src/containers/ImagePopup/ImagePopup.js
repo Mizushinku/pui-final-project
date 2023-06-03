@@ -53,7 +53,7 @@ function ImagePopup(props) {
             Negative Prompt:
           </div>
           <div id="item-7" className="grid-item">
-            {props.info["negative prompt"]}
+            {props.info["negativePrompt"]}
           </div>
           <div id="item-8" className="grid-item">
             Model:

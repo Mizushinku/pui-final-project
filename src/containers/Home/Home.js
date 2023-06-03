@@ -34,7 +34,6 @@ const Home = () => {
             ...prev,
             { url, info: metadata.customMetadata },
           ]);
-          console.log(metadata.customMetadata);
         })
         .catch((error) => {
           // Handle any errors
