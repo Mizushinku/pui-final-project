@@ -20,6 +20,7 @@ const UploadImage = () => {
     sampler: "",
     step: "",
     seed: "",
+    fav: 0,
   });
   const [modal, setModal] = useState(false);
 
@@ -40,6 +41,7 @@ const UploadImage = () => {
       sampler: "",
       step: "",
       seed: "",
+      fav: 0,
     });
   }, [location]);
 

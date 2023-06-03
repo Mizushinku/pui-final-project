@@ -8,10 +8,13 @@ const ImageGallery = ({ imgInfo }) => {
   const closeImage = (e) => {
     setPopupImgSrc(undefined);
   };
-  const [isFilled, setIsFilled] = useState(false);
+  const [isFilled, setIsFilled] = useState(Array(imgInfo.length).fill(false));
 
   const handleClick = (id) => {
-    setIsFilled(!isFilled);
+    //Todo: update by data in firebase
+    let newIsFilled = [...isFilled];
+    newIsFilled[id] = !newIsFilled[id];
+    setIsFilled(newIsFilled);
     console.log(id);
   };
   return (
@@ -39,10 +42,18 @@ const ImageGallery = ({ imgInfo }) => {
                 maxWidth: "100%",
                 cursor: "pointer",
                 objectFit: "cover",
+                userSelect: "none",
               }}
               onClick={() => {
                 console.log(info.title);
                 setPopupImgSrc(info);
+              }}
+            />
+            <Heart
+              className={`colored-svg ${isFilled[info.id] ? "fill" : ""}`}
+              style={{ position: "absolute", bottom: "10px", right: "10px" }}
+              onClick={(e) => {
+                handleClick(info.id);
               }}
             />
           </Col>
