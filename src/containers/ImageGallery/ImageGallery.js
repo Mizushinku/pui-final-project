@@ -3,7 +3,7 @@ import { Container, Row, Col } from "reactstrap";
 import ImagePopup from "../ImagePopup/ImagePopup";
 import { ReactComponent as Heart } from "../../assets/icons/favorite_FILL1_wght400_GRAD0_opsz48.svg";
 
-const ImageGallery = ({ imgInfo }) => {
+const ImageGallery = ({ imgInfo, reachBottom }) => {
   const [popupImgSrc, setPopupImgSrc] = useState(undefined);
   const closeImage = (e) => {
     setPopupImgSrc(undefined);
@@ -17,6 +17,14 @@ const ImageGallery = ({ imgInfo }) => {
     setIsFilled(newIsFilled);
     console.log(id);
   };
+
+  const handleScroll = (e) => {
+    const ele = e.target;
+    if (ele.scrollTop + ele.clientHeight >= ele.scrollHeight) {
+      reachBottom();
+    }
+  };
+
   return (
     <Container
       fluid
@@ -26,11 +34,12 @@ const ImageGallery = ({ imgInfo }) => {
         scrollbarWidth: "thin",
       }}
       className="gallery-container"
+      onScroll={handleScroll}
     >
       <Row sm="3" md="4" lg="5">
-        {imgInfo.map((info) => (
+        {imgInfo.map((info, index) => (
           <Col
-            key={info.id}
+            key={index}
             style={{
               minHeight: "300px",
               display: "flex",
@@ -57,7 +66,7 @@ const ImageGallery = ({ imgInfo }) => {
               className={`colored-svg ${isFilled[info.id] ? "fill" : ""}`}
               style={{ position: "absolute", bottom: "10px", right: "10px" }}
               onClick={(e) => {
-                handleClick(info.id);
+                // handleClick(info.id);
               }}
             />
           </Col>
