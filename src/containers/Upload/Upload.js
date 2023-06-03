@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Upload.css";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
 import { userCtx } from "../../contexts/userContext";
 import UploadModal from "./UploadModal/UploadModal";
 import { useLocation } from "react-router-dom";
@@ -66,6 +66,104 @@ const UploadImage = () => {
     toggle();
   };
 
+  const sampler_list = [
+    "",
+    "Euler A",
+    "Euler",
+    "LMS",
+    "Heun",
+    "DPM2",
+    "DPM2 a",
+    "DPM++ 2S a",
+    "DPM++ 2M",
+    "DPM++ SDE",
+    "DPM++ 2M SDE",
+    "LMS Karras",
+    "DPM2 Karras",
+    "DPM2 a Karras",
+    "DPM++ 2S a Karras",
+    "DPM++ 2M Karras",
+    "DPM++ SDE Karras",
+    "DPM++ 2M SDE Karras",
+    "DDIM",
+    "PLMS",
+    "UniPC",
+  ];
+
+  const [autoFill, setAutoFill] = useState("");
+  const autoFillData = () => {
+    const str = autoFill;
+    let endTag = ",";
+    let startTag, startIndex, endIndex;
+    // steps
+    startTag = "Steps: ";
+    startIndex = str.lastIndexOf(startTag) + startTag.length;
+    endIndex = str.indexOf(endTag, startIndex);
+    const af_steps =
+      startIndex != -1 && endIndex != -1
+        ? str.slice(startIndex, endIndex).trim()
+        : "";
+    // seeds
+    startTag = "Seed: ";
+    startIndex = str.lastIndexOf(startTag) + startTag.length;
+    endIndex = str.indexOf(endTag, startIndex);
+    const af_seed =
+      str.lastIndexOf(startTag) != -1 && endIndex != -1
+        ? str.slice(startIndex, endIndex).trim()
+        : "";
+    //CFG scale
+    startTag = "CFG scale: ";
+    startIndex = str.lastIndexOf(startTag) + startTag.length;
+    endIndex = str.indexOf(endTag, startIndex);
+    const af_cfg =
+      str.lastIndexOf(startTag) != -1 && endIndex != -1
+        ? str.slice(startIndex, endIndex).trim()
+        : "";
+    //model
+    startTag = "Model hash: ";
+    startIndex = str.lastIndexOf(startTag) + startTag.length;
+    endIndex = str.indexOf(endTag, startIndex);
+    const af_model =
+      str.lastIndexOf(startTag) != -1 && endIndex != -1
+        ? str.slice(startIndex, endIndex).trim()
+        : "";
+    //sampler
+    startTag = "Sampler: ";
+    startIndex = str.lastIndexOf(startTag) + startTag.length;
+    endIndex = str.indexOf(endTag, startIndex);
+    const af_sampler =
+      str.lastIndexOf(startTag) != -1 && endIndex != -1
+        ? str.slice(startIndex, endIndex).trim()
+        : "";
+    //negative prompt
+    endTag = "Steps:";
+    startTag = "Negative prompt: ";
+    startIndex = str.lastIndexOf(startTag) + startTag.length;
+    endIndex = str.indexOf(endTag, startIndex);
+    const af_negativePrompt =
+      str.lastIndexOf(startTag) != -1 && endIndex != -1
+        ? str.slice(startIndex, endIndex).trim()
+        : "";
+    //prompt
+    endTag = "Negative prompt: ";
+    startIndex = 0;
+    endIndex = str.indexOf(endTag, startIndex);
+    const af_prompt =
+      str.lastIndexOf(startTag) != -1 && endIndex != -1
+        ? str.slice(startIndex, endIndex).trim()
+        : "";
+    setInfo((prev) => ({
+      ...prev,
+      step: af_steps,
+      seed: af_seed,
+      model: af_model,
+      sampler: af_sampler,
+      negativePrompt: af_negativePrompt,
+      prompt: af_prompt,
+    }));
+    console.log(info);
+  };
+
   return (
     <div>
       <Form onSubmit={handleSubmit}>
@@ -91,8 +189,35 @@ const UploadImage = () => {
                 />
               </div>
             )}
+
+            <FormGroup>
+              <Label for="auto-fill">Auto Fill：</Label>
+              <Row>
+                <Col>
+                  <Input
+                    type="textarea"
+                    rows="4"
+                    id="auto-fill"
+                    className="w-100"
+                    value={autoFill}
+                    onChange={(e) => {
+                      setAutoFill(e.target.value);
+                    }}
+                  />
+                </Col>
+                <Col xs="auto" className="d-flex justify-content-center">
+                  <Button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={autoFillData}
+                  >
+                    Fill
+                  </Button>
+                </Col>
+              </Row>
+            </FormGroup>
             <div className="d-flex flex-row justify-content-center mt-5">
-              <Button type="submit" className="px-5">
+              <Button type="submit" color="primary" className="px-5">
                 上傳
               </Button>
             </div>
@@ -167,20 +292,14 @@ const UploadImage = () => {
             <FormGroup>
               <Label for="sampler">Sampler：</Label>
               <Input
-                type="select"
+                type="text"
                 id="sampler"
                 value={info.sampler}
                 // onChange={(e) => setSampler(e.target.value)}
                 onChange={(e) =>
                   setInfo((prev) => ({ ...prev, sampler: e.target.value }))
                 }
-              >
-                <option></option>
-                <option>Euler A</option>
-                <option>DPM 2S a Karras</option>
-                <option>DPM 2M a Karras</option>
-                <option>DDIM</option>
-              </Input>
+              ></Input>
             </FormGroup>
             <FormGroup>
               <Label for="step">Step：</Label>
