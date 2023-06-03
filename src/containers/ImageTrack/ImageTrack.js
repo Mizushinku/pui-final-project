@@ -72,10 +72,8 @@ const ImageTrack = (props) => {
   };
 
   const handleImageClick = (targetImg) => {
-    //setPopupImgSrc(targetImg.src);
-    // let image_info = ImagesInfo[targetImg.dataset.index];
-    let image_info = targetImg.dataset.info;
-    // image_info["src"] = targetImg.src;
+    let image_info = props.images[targetImg.dataset.index].info;
+    image_info["src"] = targetImg.src;
     setPopupImgSrc(image_info);
   };
 
@@ -86,10 +84,9 @@ const ImageTrack = (props) => {
     return images.map((image, index) => (
       <div key={index}>
         <img
-          // data-index={index}
+          data-index={index}
           className="image"
           src={image.url}
-          data-info={image.info}
           alt=""
           ref={(ele) => (imgRef.current[index] = ele)}
           draggable="false"

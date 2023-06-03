@@ -2,7 +2,7 @@ import { storage } from "../../index";
 import { ref, getMetadata, updateMetadata } from "firebase/storage";
 
 // 更新檔案 metadata 的範例
-export function UpdateLike(fileName, type) {
+export function UpdateLike(fileName, type, setFavCnt) {
   const storageRef = ref(storage, "images/" + fileName);
   getMetadata(storageRef)
     .then((metadata) => {
@@ -40,6 +40,11 @@ export function UpdateLike(fileName, type) {
     .then(() => {
       // 更新成功
       console.log("Metadata updated successfully");
+      if (type === "+") {
+        setFavCnt((prev) => prev + 1);
+      } else {
+        setFavCnt((prev) => prev - 1);
+      }
     })
     .catch((error) => {
       // 更新失敗
