@@ -5,11 +5,13 @@ import { ReactComponent as Heart } from "../../assets/icons/favorite_FILL1_wght4
 
 function ImagePopup(props) {
   const [isFilled, setIsFilled] = useState(false);
+  const [favCnt, setFavCnt] = useState(parseInt(props.info.fav));
 
   const handleClick = () => {
     //update user collection and liked number
-    if (!isFilled) UpdateLike("21b53bb7-89f0-4c01-b351-942c3fce1129.png", "+");
-    else UpdateLike("21b53bb7-89f0-4c01-b351-942c3fce1129.png", "-");
+    const fileName = props.info.name;
+    if (!isFilled) UpdateLike(fileName, "+", setFavCnt);
+    else UpdateLike(fileName, "-", setFavCnt);
     setIsFilled(!isFilled);
   };
   return (
@@ -94,7 +96,7 @@ function ImagePopup(props) {
             />
           </div>
           <div id="item-19" className="grid-item">
-            {props.info["fav"]}
+            {favCnt}
           </div>
         </div>
       </div>

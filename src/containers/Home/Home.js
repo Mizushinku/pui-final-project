@@ -32,7 +32,7 @@ const Home = () => {
           const metadata = results[1];
           setTrackImages((prev) => [
             ...prev,
-            { url, info: metadata.customMetadata },
+            { url, info: { name: metadata.name, ...metadata.customMetadata } },
           ]);
         })
         .catch((error) => {
