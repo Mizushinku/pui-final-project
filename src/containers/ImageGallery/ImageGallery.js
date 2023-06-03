@@ -24,9 +24,9 @@ const ImageGallery = ({ imgInfo }) => {
       className="gallery-container"
     >
       <Row sm="3" md="4" lg="5">
-        {imgInfo.map((info) => (
+        {imgInfo.map((info, index) => (
           <Col
-            key={info.id}
+            key={index}
             style={{
               minHeight: "300px",
               display: "flex",
@@ -53,7 +53,7 @@ const ImageGallery = ({ imgInfo }) => {
               className={`colored-svg ${isFilled[info.id] ? "fill" : ""}`}
               style={{ position: "absolute", bottom: "10px", right: "10px" }}
               onClick={(e) => {
-                handleClick(info.id);
+                // handleClick(info.id);
               }}
             />
           </Col>

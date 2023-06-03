@@ -1,19 +1,28 @@
 import React, { useEffect, useState } from "react";
 import ImageTrack from "../ImageTrack/ImageTrack";
 import ImageGallery from "../ImageGallery/ImageGallery";
-import ImagesInfo from "../../assets/ImagesInfo/ImagesInfo";
 import { db, storage } from "../../index";
-import { query, orderBy, limit, collection, getDocs } from "firebase/firestore";
+import {
+  query,
+  orderBy,
+  limit,
+  collection,
+  getDocs,
+  startAfter,
+} from "firebase/firestore";
 import { ref, getDownloadURL, getMetadata } from "firebase/storage";
 
 const Home = () => {
   const [trackIamges, setTrackImages] = useState([]);
+  const [recentImages, setRecentImages] = useState([]);
+  const [lastVisible, setLastVisible] = useState(undefined);
 
   useEffect(() => {
     getImageForTrack(
       query(collection(db, "files"), orderBy("timestamp", "desc"), limit(30)),
       10
     );
+    getImageForGallery();
   }, []);
 
   const getImageForTrack = async (q, n) => {
@@ -41,11 +50,49 @@ const Home = () => {
     });
   };
 
+  const getImageForGallery = async () => {
+    const n = 10;
+    let qSnapshot = null;
+    if (!lastVisible) {
+      const q = query(
+        collection(db, "files"),
+        orderBy("timestamp", "desc"),
+        limit(n)
+      );
+      qSnapshot = await getDocs(q);
+      setLastVisible(qSnapshot.docs[qSnapshot.docs.length - 1]);
+    } else {
+      const q = query(
+        collection(db, "files"),
+        orderBy("timestamp", "desc"),
+        startAfter(lastVisible),
+        limit(n)
+      );
+      qSnapshot = await getDocs(q);
+    }
+    const images = qSnapshot.docs.map((doc) => doc.id);
+    const promises = images.map((fileName) => {
+      const fileRef = ref(storage, "images/" + fileName);
+      return Promise.all([getDownloadURL(fileRef), getMetadata(fileRef)]);
+    });
+
+    Promise.all(promises)
+      .then((results) => {
+        const newImages = results.map(([url, metadata]) => {
+          return { src: url, name: metadata.name, ...metadata.customMetadata };
+        });
+        setRecentImages((prev) => [...prev, ...newImages]);
+      })
+      .catch((error) => {
+        // Handle any errors
+      });
+  };
+
   return (
     <div>
       <ImageTrack images={trackIamges}></ImageTrack>
       <h1 className="fw-bold fs-1 text-center my-5">Recent Gallery</h1>
-      <ImageGallery imgInfo={ImagesInfo}></ImageGallery>
+      <ImageGallery imgInfo={recentImages}></ImageGallery>
     </div>
   );
 };
