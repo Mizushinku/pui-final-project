@@ -167,7 +167,7 @@ const UploadImage = () => {
       negativePrompt: af_negativePrompt,
       prompt: af_prompt,
     }));
-    console.log(info);
+    setAutoFill("");
   };
 
   return (
