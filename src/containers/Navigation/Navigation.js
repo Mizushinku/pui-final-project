@@ -45,6 +45,13 @@ const Navigation = () => {
       </NavbarBrand>
       {currUser ? (
         <div className="d-flex align-items-center me-2">
+          <NavLink
+            className="d-flex align-items-center"
+            tag={RouterNavLink}
+            to={appRoutes.upload}
+          >
+            <button className="btn-black-white px-4 py-1 me-3">Upload</button>
+          </NavLink>
           <Dropdown
             id="user-menu-dropdown"
             isOpen={isMenuOpen}
@@ -74,9 +81,7 @@ const Navigation = () => {
           tag={RouterNavLink}
           to={appRoutes.login}
         >
-          <button id="btn-login" className="px-4 py-1">
-            Login
-          </button>
+          <button className="btn-black-white px-4 py-1">Login</button>
         </NavLink>
       )}
     </Navbar>

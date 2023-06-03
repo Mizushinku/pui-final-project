@@ -6,11 +6,12 @@
   border-bottom: 0.2rem solid black;
 }
 
-#btn-login {
+.btn-black-white {
   --c: white;
   --hc: black;
   font-size: 1.2rem;
   font-weight: bold;
+  width: 7em;
   border: 0.3rem solid var(--hc);
   border-radius: 0.5rem;
   color: var(--c);
@@ -20,7 +21,7 @@
 
   &:hover {
     color: var(--hc);
-    box-shadow: inset 6em 0 var(--c);
+    box-shadow: inset 7em 0 var(--c);
   }
 }
 

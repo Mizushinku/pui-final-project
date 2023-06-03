@@ -7,7 +7,6 @@ import {
   ModalHeader,
   Progress,
 } from "reactstrap";
-import imagesInfo from "../../assets/ImagesInfo/ImagesInfo";
 import { db, storage } from "../../index";
 import { v4 as uuidv4 } from "uuid";
 import { doc, getDoc, updateDoc, Timestamp } from "firebase/firestore";
@@ -29,16 +28,7 @@ const UploadModal = (props) => {
   const uploadImage = () => {
     const metadata = {
       customMetadata: {
-        ...props.info,
-        // uploader: props.user.uid,
-        // title: imagesInfo[0]["title"],
-        // caption: imagesInfo[0]["caption"],
-        // prompt: imagesInfo[0]["prompt"],
-        // negativePrompt: imagesInfo[0]["negative prompt"],
-        // model: imagesInfo[0]["model"],
-        // step: imagesInfo[0]["step"],
-        // seed: imagesInfo[0]["seed"],
-        // cfg: imagesInfo[0]["cfg"],
+        ...props.infoRef.current,
       },
     };
     const fileName = uuidv4() + "." + props.file.name.split(".").pop();

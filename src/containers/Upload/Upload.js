@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import "./Upload.css";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { userCtx } from "../../contexts/userContext";
+import UploadModal from "./UploadModal";
 
 const UploadImage = () => {
+  const { currUser } = useContext(userCtx);
+
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [title, setTitle] = useState("");
@@ -13,6 +17,13 @@ const UploadImage = () => {
   const [sampler, setSampler] = useState("");
   const [step, setStep] = useState("");
   const [seed, setSeed] = useState("");
+  const [modal, setModal] = useState(false);
+
+  const infoRef = useRef(undefined);
+
+  const toggle = () => {
+    setModal((prev) => !prev);
+  };
 
   const handleImageUpload = (event) => {
     const image = event.target.files[0];
@@ -23,7 +34,8 @@ const UploadImage = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // 在這裡處理表單提交的邏輯
-    let image_ingo = {
+    infoRef.current = {
+      uploader: currUser.uid,
       title: title,
       caption: caption,
       prompt: prompt,
@@ -33,8 +45,7 @@ const UploadImage = () => {
       step: step,
       seed: seed,
     };
-    console.log(image_ingo);
-    console.log(selectedImage);
+    toggle();
   };
 
   return (
@@ -152,6 +163,13 @@ const UploadImage = () => {
           </div>
         </div>
       </Form>
+      <UploadModal
+        modal={modal}
+        toggle={toggle}
+        user={currUser}
+        file={selectedImage}
+        infoRef={infoRef}
+      ></UploadModal>
     </div>
   );
 };

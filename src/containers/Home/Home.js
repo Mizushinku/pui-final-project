@@ -1,7 +1,5 @@
 import React from "react";
-import { Button } from "reactstrap";
 import ImageTrack from "../ImageTrack/ImageTrack";
-import appRoutes from "../../shared/appRoutes";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import ImagesInfo from "../../assets/ImagesInfo/ImagesInfo";
 
@@ -9,9 +7,8 @@ const Home = () => {
   return (
     <div>
       <ImageTrack></ImageTrack>
-      <h1>This is Home page.</h1>
+      <h1 className="fw-bold fs-1 text-center my-5">Recent Gallery</h1>
       <ImageGallery imgInfo={ImagesInfo}></ImageGallery>
-      <Button href={appRoutes.upload}>upload</Button>
     </div>
   );
 };
