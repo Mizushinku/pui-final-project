@@ -20,7 +20,11 @@ const ImageGallery = ({ imgInfo }) => {
   return (
     <Container
       fluid
-      style={{ maxHeight: "70vh", overflow: "auto" }}
+      style={{
+        maxHeight: "70vh",
+        overflow: "auto",
+        scrollbarWidth: "thin",
+      }}
       className="gallery-container"
     >
       <Row sm="3" md="4" lg="5">

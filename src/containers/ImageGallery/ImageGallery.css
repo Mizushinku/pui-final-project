@@ -1,4 +1,4 @@
 .gallery-container::-webkit-scrollbar {
-  width: 0 !important; /* 調整 scrollbar 寬度 */
-  background-color: transparent !important; /* 設定 scrollbar 背景顏色 */
+  display: none !important;
+  width: 0 !important;
 }
