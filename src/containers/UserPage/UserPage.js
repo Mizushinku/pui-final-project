@@ -16,6 +16,8 @@ const UserPage = () => {
     }
   };
 
+  console.log(ImagesInfo);
+
   return (
     <div>
       <Nav justified pills>

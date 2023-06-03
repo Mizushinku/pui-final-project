@@ -7,7 +7,7 @@ function ImagePopup(props) {
   const [isFilled, setIsFilled] = useState(false);
 
   const handleClick = () => {
-    //updata user collection and liked number
+    //update user collection and liked number
     if (!isFilled) UpdateLike("21b53bb7-89f0-4c01-b351-942c3fce1129.png", "+");
     else UpdateLike("21b53bb7-89f0-4c01-b351-942c3fce1129.png", "-");
     setIsFilled(!isFilled);
