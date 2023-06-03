@@ -2,7 +2,7 @@ const routes = {
   home: "/",
   login: "/login",
   upload: "/upload",
-  userPage: "myPage",
+  userPage: "/myPage",
 
   tos: "/tos",
   pp: "/privacyPolicy",

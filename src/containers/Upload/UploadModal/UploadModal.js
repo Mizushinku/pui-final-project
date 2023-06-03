@@ -7,15 +7,22 @@ import {
   ModalHeader,
   Progress,
 } from "reactstrap";
-import { db, storage } from "../../index";
+import { db, storage } from "../../../index";
 import { v4 as uuidv4 } from "uuid";
 import { doc, getDoc, updateDoc, Timestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
+import UploadedModal from "./UploadedModal/UploadedModal";
+
 const UploadModal = (props) => {
   const [running, setRunning] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [uploadedModal, setUploadedModal] = useState(false);
   const taskRef = useRef(undefined);
+
+  const toggleUploaded = () => {
+    setUploadedModal((prev) => !prev);
+  };
 
   const onOpen = () => {
     uploadImage();
@@ -63,7 +70,7 @@ const UploadModal = (props) => {
             () => {
               console.log("Successfully Update user's uploaded.");
               props.toggle();
-              props.setUploaded(true);
+              toggleUploaded();
             },
             (error) => {
               console.log("update user's uploaded Failed", error);
@@ -101,30 +108,33 @@ const UploadModal = (props) => {
   };
 
   return (
-    <Modal
-      isOpen={props.modal}
-      toggle={props.toggle}
-      backdrop={"static"}
-      centered={true}
-      keyboard={false}
-      onOpened={onOpen}
-      onClosed={onClose}
-    >
-      <ModalHeader>Uploading File...</ModalHeader>
-      <ModalBody>
-        <Progress animated color="primary" value={Math.round(progress)}>
-          {Math.round(progress)} %
-        </Progress>
-      </ModalBody>
-      <ModalFooter>
-        <Button color="primary" onClick={handlePauseResume}>
-          {running ? "Pause" : "Resume"}
-        </Button>
-        <Button color="danger" onClick={handleCancel}>
-          Cancel
-        </Button>
-      </ModalFooter>
-    </Modal>
+    <div>
+      <Modal
+        isOpen={props.modal}
+        toggle={props.toggle}
+        backdrop={"static"}
+        centered={true}
+        keyboard={false}
+        onOpened={onOpen}
+        onClosed={onClose}
+      >
+        <ModalHeader>Uploading File...</ModalHeader>
+        <ModalBody>
+          <Progress animated color="primary" value={Math.round(progress)}>
+            {Math.round(progress)} %
+          </Progress>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={handlePauseResume}>
+            {running ? "Pause" : "Resume"}
+          </Button>
+          <Button color="danger" onClick={handleCancel}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+      <UploadedModal modal={uploadedModal} toggle={toggleUploaded} />
+    </div>
   );
 };
 

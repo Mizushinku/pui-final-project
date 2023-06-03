@@ -2,36 +2,46 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Upload.css";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { userCtx } from "../../contexts/userContext";
-import UploadModal from "./UploadModal";
-import { useNavigate } from "react-router-dom";
-import appRoutes from "../../shared/appRoutes";
+import UploadModal from "./UploadModal/UploadModal";
+import { useLocation } from "react-router-dom";
 
 const UploadImage = () => {
   const { currUser } = useContext(userCtx);
 
+  const [inputKey, setInputKey] = useState(Date.now());
   const [selectedImage, setSelectedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const [title, setTitle] = useState("");
-  const [caption, setCaption] = useState("");
-  const [prompt, setPrompt] = useState("");
-  const [negativePrompt, setNegativePrompt] = useState("");
-  const [model, setModel] = useState("");
-  const [sampler, setSampler] = useState("");
-  const [step, setStep] = useState("");
-  const [seed, setSeed] = useState("");
+  const [info, setInfo] = useState({
+    title: "",
+    caption: "",
+    prompt: "",
+    negativePrompt: "",
+    model: "",
+    sampler: "",
+    step: "",
+    seed: "",
+  });
   const [modal, setModal] = useState(false);
-  const [uploaded, setUploaded] = useState(false);
 
   const infoRef = useRef(undefined);
 
-  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (uploaded) {
-      navigate(appRoutes.home);
-    }
-    // eslint-disable-next-line
-  }, [uploaded]);
+    setInputKey(Date.now());
+    setSelectedImage(null);
+    setPreviewImage(null);
+    setInfo({
+      title: "",
+      caption: "",
+      prompt: "",
+      negativePrompt: "",
+      model: "",
+      sampler: "",
+      step: "",
+      seed: "",
+    });
+  }, [location]);
 
   const toggle = () => {
     setModal((prev) => !prev);
@@ -48,14 +58,7 @@ const UploadImage = () => {
     // 在這裡處理表單提交的邏輯
     infoRef.current = {
       uploader: currUser.uid,
-      title: title,
-      caption: caption,
-      prompt: prompt,
-      "negative prompt": negativePrompt,
-      model: model,
-      sampler: sampler,
-      step: step,
-      seed: seed,
+      ...info,
     };
     toggle();
   };
@@ -68,6 +71,7 @@ const UploadImage = () => {
             <FormGroup>
               <Label for="image">圖片選擇器：</Label>
               <Input
+                key={inputKey}
                 type="file"
                 id="image"
                 accept="image/*"
@@ -96,8 +100,11 @@ const UploadImage = () => {
               <Input
                 type="text"
                 id="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={info.title}
+                // onChange={(e) => setTitle(e.target.value)}
+                onChange={(e) =>
+                  setInfo((prev) => ({ ...prev, title: e.target.value }))
+                }
                 required
               />
             </FormGroup>
@@ -106,8 +113,11 @@ const UploadImage = () => {
               <Input
                 type="text"
                 id="caption"
-                value={caption}
-                onChange={(e) => setCaption(e.target.value)}
+                value={info.caption}
+                // onChange={(e) => setCaption(e.target.value)}
+                onChange={(e) =>
+                  setInfo((prev) => ({ ...prev, caption: e.target.value }))
+                }
               />
             </FormGroup>
             <FormGroup>
@@ -116,8 +126,11 @@ const UploadImage = () => {
                 type="textarea"
                 rows="4"
                 id="prompt"
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
+                value={info.prompt}
+                // onChange={(e) => setPrompt(e.target.value)}
+                onChange={(e) =>
+                  setInfo((prev) => ({ ...prev, prompt: e.target.value }))
+                }
               />
             </FormGroup>
             <FormGroup>
@@ -126,8 +139,14 @@ const UploadImage = () => {
                 type="textarea"
                 rows="4"
                 id="negativePrompt"
-                value={negativePrompt}
-                onChange={(e) => setNegativePrompt(e.target.value)}
+                value={info.negativePrompt}
+                // onChange={(e) => setNegativePrompt(e.target.value)}
+                onChange={(e) =>
+                  setInfo((prev) => ({
+                    ...prev,
+                    negativePrompt: e.target.value,
+                  }))
+                }
               />
             </FormGroup>
             <FormGroup>
@@ -135,8 +154,11 @@ const UploadImage = () => {
               <Input
                 type="text"
                 id="model"
-                value={model}
-                onChange={(e) => setModel(e.target.value)}
+                value={info.model}
+                // onChange={(e) => setModel(e.target.value)}
+                onChange={(e) =>
+                  setInfo((prev) => ({ ...prev, model: e.target.value }))
+                }
               />
             </FormGroup>
             <FormGroup>
@@ -144,8 +166,11 @@ const UploadImage = () => {
               <Input
                 type="select"
                 id="sampler"
-                value={sampler}
-                onChange={(e) => setSampler(e.target.value)}
+                value={info.sampler}
+                // onChange={(e) => setSampler(e.target.value)}
+                onChange={(e) =>
+                  setInfo((prev) => ({ ...prev, sampler: e.target.value }))
+                }
               >
                 <option></option>
                 <option>Euler A</option>
@@ -159,8 +184,11 @@ const UploadImage = () => {
               <Input
                 type="number"
                 id="step"
-                value={step}
-                onChange={(e) => setStep(e.target.value)}
+                value={info.step}
+                // onChange={(e) => setStep(e.target.value)}
+                onChange={(e) =>
+                  setInfo((prev) => ({ ...prev, step: e.target.value }))
+                }
               />
             </FormGroup>
             <FormGroup>
@@ -168,8 +196,11 @@ const UploadImage = () => {
               <Input
                 type="number"
                 id="seed"
-                value={seed}
-                onChange={(e) => setSeed(e.target.value)}
+                value={info.seed}
+                // onChange={(e) => setSeed(e.target.value)}
+                onChange={(e) =>
+                  setInfo((prev) => ({ ...prev, seed: e.target.value }))
+                }
               />
             </FormGroup>
           </div>
@@ -181,7 +212,6 @@ const UploadImage = () => {
         user={currUser}
         file={selectedImage}
         infoRef={infoRef}
-        setUploaded={setUploaded}
       ></UploadModal>
     </div>
   );
