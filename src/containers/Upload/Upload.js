@@ -51,6 +51,7 @@ const UploadImage = () => {
     const image = event.target.files[0];
     setSelectedImage(image);
     setPreviewImage(URL.createObjectURL(image));
+    setInfo((prev) => ({ ...prev, title: image.name.split(".")[0] }));
   };
 
   const handleSubmit = (event) => {
