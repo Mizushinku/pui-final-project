@@ -9,8 +9,8 @@ import {
 } from "reactstrap";
 import { db, storage } from "../../../index";
 import { v4 as uuidv4 } from "uuid";
-import { doc, getDoc, updateDoc, Timestamp } from "firebase/firestore";
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, runTransaction, Timestamp } from "firebase/firestore";
+import { ref, uploadBytesResumable } from "firebase/storage";
 
 import UploadedModal from "./UploadedModal/UploadedModal";
 
@@ -62,32 +62,37 @@ const UploadModal = (props) => {
       },
       () => {
         // Upload completed successfully, now we can get the download URL
-        getDownloadURL(uploadTask.snapshot.ref)
-          .then((downloadURL) => {
-            return setUploadedImgUrl(downloadURL);
-          })
-          .then(
-            () => {
-              console.log("Successfully Update user's uploaded.");
-              props.toggle();
-              toggleUploaded();
-            },
-            (error) => {
-              console.log("update user's uploaded Failed", error);
-            }
-          );
+        setUploadedImgtoDB(uploadTask.snapshot.ref.name).then(
+          () => {
+            console.log("Successfully Update user's uploaded.");
+            props.toggle();
+            toggleUploaded();
+          },
+          (error) => {
+            console.log("update user's uploaded Failed", error);
+          }
+        );
       }
     );
   };
 
-  const setUploadedImgUrl = async (url) => {
-    const userDocRef = doc(db, "users", props.user.uid);
-    const userDoc = await getDoc(userDocRef);
-    const uploaded = [
-      ...userDoc.data().uploaded,
-      { url, timestamp: Timestamp.now() },
-    ];
-    return await updateDoc(userDocRef, { uploaded });
+  const setUploadedImgtoDB = async (fileName) => {
+    return await runTransaction(db, async (transaction) => {
+      const userDocRef = doc(db, "users", props.user.uid);
+      const userDoc = await transaction.get(userDocRef);
+      if (!userDoc.exists()) {
+        throw "Document does not exist!";
+      }
+      const ts = Timestamp.now();
+      const uploaded = [
+        ...userDoc.data().uploaded,
+        { fileName, timestamp: ts },
+      ];
+      transaction.update(userDocRef, { uploaded });
+
+      const fileDocRef = doc(db, "files", fileName);
+      transaction.set(fileDocRef, { timestamp: ts });
+    });
   };
 
   const handlePauseResume = () => {

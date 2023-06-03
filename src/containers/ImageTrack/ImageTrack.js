@@ -1,12 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./ImageTrack.css";
-import amiya from "../../assets/images/amiya.jpg";
-import kirara from "../../assets/images/kirara.png";
-import sakura from "../../assets/images/sakura.jpg";
-import shionn from "../../assets/images/shionn.png";
-import angel from "../../assets/images/angel.png";
 import ImagePopup from "../ImagePopup/ImagePopup";
-import ImagesInfo from "../../assets/ImagesInfo/ImagesInfo";
+// import ImagesInfo from "../../assets/ImagesInfo/ImagesInfo";
 
 const ImageTrack = (props) => {
   const [rollingPos, setRollingPos] = useState(-50);
@@ -78,20 +73,23 @@ const ImageTrack = (props) => {
 
   const handleImageClick = (targetImg) => {
     //setPopupImgSrc(targetImg.src);
-    let image_info = ImagesInfo[targetImg.dataset.index];
-    image_info["src"] = targetImg.src;
+    // let image_info = ImagesInfo[targetImg.dataset.index];
+    let image_info = targetImg.dataset.info;
+    // image_info["src"] = targetImg.src;
     setPopupImgSrc(image_info);
   };
 
   const renderImages = () => {
-    const images = [angel, amiya, kirara, sakura, shionn];
+    const images = props.images;
+
     const n = images.length;
-    return images.map((src, index) => (
+    return images.map((image, index) => (
       <div key={index}>
         <img
-          data-index={index}
+          // data-index={index}
           className="image"
-          src={src}
+          src={image.url}
+          data-info={image.info}
           alt=""
           ref={(ele) => (imgRef.current[index] = ele)}
           draggable="false"
