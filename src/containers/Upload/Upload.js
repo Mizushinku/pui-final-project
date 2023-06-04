@@ -330,7 +330,7 @@ const UploadImage = () => {
                 value={info.cfg}
                 // onChange={(e) => setStep(e.target.value)}
                 onChange={(e) =>
-                  setInfo((prev) => ({ ...prev, step: e.target.value }))
+                  setInfo((prev) => ({ ...prev, cfg: e.target.value }))
                 }
               />
             </FormGroup>

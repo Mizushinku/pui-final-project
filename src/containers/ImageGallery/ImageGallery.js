@@ -47,7 +47,7 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
               alignItems: "center",
             }}
           >
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative", margin: "20px" }}>
               <img
                 src={info.src}
                 alt={info.caption}

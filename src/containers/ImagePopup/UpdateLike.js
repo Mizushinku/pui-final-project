@@ -4,11 +4,11 @@ import { ref, getMetadata, updateMetadata, listAll } from "firebase/storage";
 // 更新檔案 metadata 的範例
 export function UpdateLike(fileName, type, setFavCnt) {
   const storageRef = ref(storage, "images/" + fileName);
+  let newMetadata = {};
   getMetadata(storageRef)
     .then((metadata) => {
       // 原始 metadata
       console.log("Original metadata:", metadata);
-      let newMetadata = {};
       // 更新部分 metadata 屬性
       if (metadata.customMetadata.hasOwnProperty("fav")) {
         if (type == "+") {
@@ -45,6 +45,7 @@ export function UpdateLike(fileName, type, setFavCnt) {
       } else {
         setFavCnt((prev) => prev - 1);
       }
+      console.log(newMetadata.customMetadata);
     })
     .catch((error) => {
       // 更新失敗
