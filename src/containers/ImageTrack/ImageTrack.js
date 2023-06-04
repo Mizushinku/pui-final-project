@@ -37,7 +37,7 @@ const ImageTrack = (props) => {
       const containerRect = e.currentTarget.getBoundingClientRect();
       const currPos = e.clientX - containerRect.left;
       const currDelta = downPosRef.current - currPos;
-      const maxDelta = containerRect.width / 0.8;
+      const maxDelta = containerRect.width / 0.5;
       let nextRollingPos =
         prevRollingPosRef.current + (currDelta / maxDelta) * -100;
       nextRollingPos = Math.max(Math.min(nextRollingPos, 0), -100);
