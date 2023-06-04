@@ -49,8 +49,9 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
 
   const handleScroll = (e) => {
     const ele = e.target;
-    if (ele.scrollTop + ele.clientHeight === ele.scrollHeight) {
-      reachBottom();
+    if (ele.scrollTop + ele.clientHeight >= ele.scrollHeight) {
+      console.log("reach bottom");
+      //reachBottom();
     }
   };
 
@@ -104,6 +105,10 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
           </Col>
         ))}
       </Row>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button onClick={reachBottom}>載入更多</Button>
+      </div>
+
       {popupImgSrc && <ImagePopup info={popupImgSrc} closeImage={closeImage} />}
       {showLoginModal ? (
         <Modal
