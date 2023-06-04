@@ -15,11 +15,12 @@ import { userCtx } from "../../contexts/userContext";
 import appRoutes from "../../shared/appRoutes";
 import { useNavigate } from "react-router-dom";
 
-const ImageGallery = ({ imgInfo, reachBottom }) => {
+const ImageGallery = ({ imgInfo, loadMore }) => {
   const { currUser, myFavs } = useContext(userCtx);
   const [popupImgSrc, setPopupImgSrc] = useState(undefined);
   const [redirectModal, setRedirectModal] = useState(true);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [noMore, setNoMore] = useState(false);
   const navigate = useNavigate();
 
   const closeImage = (e) => {
@@ -47,11 +48,17 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
     else UpdateLike(currUser.uid, info.name, "-", null);
   };
 
-  const handleScroll = (e) => {
-    const ele = e.target;
-    if (ele.scrollTop + ele.clientHeight >= ele.scrollHeight) {
-      console.log("reach bottom");
-      //reachBottom();
+  // const handleScroll = (e) => {
+  //   const ele = e.target;
+  //   if (ele.scrollTop + ele.clientHeight >= ele.scrollHeight) {
+  //     console.log("reach bottom");
+  //   }
+  // };
+
+  const handleLoadMore = async () => {
+    const res = await loadMore();
+    if (res === true) {
+      setNoMore(true);
     }
   };
 
@@ -64,7 +71,6 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
         scrollbarWidth: "thin",
       }}
       className="gallery-container"
-      onScroll={reachBottom ? handleScroll : () => {}}
     >
       <Row sm="2" md="3" lg="4">
         {imgInfo.map((info, index) => (
@@ -105,8 +111,20 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
           </Col>
         ))}
       </Row>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Button onClick={reachBottom}>載入更多</Button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: "15px",
+        }}
+      >
+        <Button
+          className="px-5 my-2"
+          disabled={noMore}
+          onClick={handleLoadMore}
+        >
+          載入更多
+        </Button>
       </div>
 
       {popupImgSrc && <ImagePopup info={popupImgSrc} closeImage={closeImage} />}

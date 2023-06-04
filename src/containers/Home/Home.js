@@ -53,7 +53,7 @@ const Home = () => {
   };
 
   const getImageForGallery = async () => {
-    if (noMore) return;
+    if (noMore) return true;
     const n = 8;
     let qSnapshot = null;
     let q = undefined;
@@ -74,6 +74,9 @@ const Home = () => {
     qSnapshot = await getDocs(q);
     if (qSnapshot.docs.length < n) {
       setNoMore(true);
+    }
+    if (qSnapshot.docs.length === 0) {
+      return true;
     }
     setLastVisible(qSnapshot.docs[qSnapshot.docs.length - 1]);
     const images = qSnapshot.docs.map((doc) => doc.id);
@@ -100,7 +103,7 @@ const Home = () => {
       <h1 className="fw-bold fs-1 text-center my-5">Recent Gallery</h1>
       <ImageGallery
         imgInfo={recentImages}
-        reachBottom={getImageForGallery}
+        loadMore={getImageForGallery}
       ></ImageGallery>
     </div>
   );
