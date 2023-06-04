@@ -65,7 +65,7 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
       className="gallery-container"
       onScroll={reachBottom ? handleScroll : () => {}}
     >
-      <Row sm="3" md="4" lg="5">
+      <Row sm="2" md="3" lg="4">
         {imgInfo.map((info, index) => (
           <Col
             key={index}

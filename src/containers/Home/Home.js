@@ -54,7 +54,7 @@ const Home = () => {
 
   const getImageForGallery = async () => {
     if (noMore) return;
-    const n = 10;
+    const n = 8;
     let qSnapshot = null;
     let q = undefined;
     if (!lastVisible) {
