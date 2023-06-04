@@ -5,7 +5,7 @@ import { ReactComponent as Heart } from "../../assets/icons/favorite_FILL1_wght4
 import { storage } from "../../index";
 import { ref, getMetadata, updateMetadata, listAll } from "firebase/storage";
 
-function ImagePopup({ info, closeImage, reachBottom }) {
+function ImagePopup({ info, closeImage }) {
   console.log(info);
   const [isFilled, setIsFilled] = useState(false);
   const [favCnt, setFavCnt] = useState(parseInt(info.fav));
@@ -17,6 +17,11 @@ function ImagePopup({ info, closeImage, reachBottom }) {
     else UpdateLike(fileName, "-", setFavCnt);
     setIsFilled(!isFilled);
   };
+
+  const storageRef = ref(storage, "images/" + info.name);
+  getMetadata(storageRef).then((metadata) => {
+    setFavCnt(metadata.customMetadata.fav);
+  });
   return (
     <div>
       <div className="popup-overlay" onClick={closeImage}>
