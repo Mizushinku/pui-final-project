@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useRef, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { db, storage } from "../index";
 import { getDoc, doc, onSnapshot } from "firebase/firestore";
@@ -13,16 +13,17 @@ const UserProvider = ({ children }) => {
   const [myFavs, setMyFavs] = useState([]);
   const [pending, setPending] = useState(true);
 
-  const cntMyImage = useRef(0);
+  const [cntMyImage, setCntMyImage] = useState(0);
 
   const getMyImages = async (uid) => {
     const docRef = doc(db, "users", uid);
     const userDoc = await getDoc(docRef);
     const uploaded = userDoc.data().uploaded;
-    if (cntMyImage.current === uploaded.length) {
+    console.log(cntMyImage, uploaded.length);
+    if (cntMyImage === uploaded.length) {
       return;
     }
-    cntMyImage.current = uploaded.length;
+    setCntMyImage(uploaded.length);
     uploaded.sort((a, b) => b.timestamp - a.timestamp);
     const images = uploaded.map((item) => item.fileName);
     const promises = images.map((fileName) => {
@@ -84,6 +85,7 @@ const UserProvider = ({ children }) => {
     return () => {
       unsubAuth();
     };
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -104,6 +106,7 @@ const UserProvider = ({ children }) => {
       setMyImages([]);
       setMyFavs([]);
     }
+    // eslint-disable-next-line
   }, [currUser]);
 
   if (pending) {
