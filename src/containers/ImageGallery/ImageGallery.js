@@ -22,7 +22,7 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
 
   const handleScroll = (e) => {
     const ele = e.target;
-    if (ele.scrollTop + ele.clientHeight >= ele.scrollHeight) {
+    if (ele.scrollTop + ele.clientHeight === ele.scrollHeight) {
       reachBottom();
     }
   };
