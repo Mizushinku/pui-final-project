@@ -1,26 +1,38 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./ImagePopup.css";
 import { UpdateLike } from "./UpdateLike";
 import { ReactComponent as Heart } from "../../assets/icons/favorite_FILL1_wght400_GRAD0_opsz48.svg";
 import { storage } from "../../index";
-import { ref, getMetadata, updateMetadata, listAll } from "firebase/storage";
+import { ref, getMetadata } from "firebase/storage";
+import { userCtx } from "../../contexts/userContext";
 
 function ImagePopup({ info, closeImage }) {
-  console.log(info);
+  // console.log(info);
+  const { currUser, myFavs } = useContext(userCtx);
   const [isFilled, setIsFilled] = useState(false);
   const [favCnt, setFavCnt] = useState(parseInt(info.fav));
 
+  useEffect(() => {
+    const index = myFavs.findIndex((item) => item.name === info.name);
+    if (index !== -1) {
+      setIsFilled(true);
+    }
+    // eslint-disable-next-line
+  }, [myFavs]);
+
   const handleClick = () => {
     //update user collection and liked number
-    const fileName = info.name;
-    if (!isFilled) UpdateLike(fileName, "+", setFavCnt);
-    else UpdateLike(fileName, "-", setFavCnt);
-    setIsFilled(!isFilled);
+    if (currUser) {
+      const fileName = info.name;
+      if (!isFilled) UpdateLike(currUser.uid, fileName, "+", setFavCnt);
+      else UpdateLike(currUser.uid, fileName, "-", setFavCnt);
+      setIsFilled(!isFilled);
+    }
   };
 
   const storageRef = ref(storage, "images/" + info.name);
   getMetadata(storageRef).then((metadata) => {
-    setFavCnt(metadata.customMetadata.fav);
+    setFavCnt(parseInt(metadata.customMetadata.fav));
   });
   return (
     <div>

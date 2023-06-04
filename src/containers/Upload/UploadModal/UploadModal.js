@@ -81,7 +81,7 @@ const UploadModal = (props) => {
       const userDocRef = doc(db, "users", props.user.uid);
       const userDoc = await transaction.get(userDocRef);
       if (!userDoc.exists()) {
-        throw "Document does not exist!";
+        throw new Error("Document does not exist!");
       }
       const ts = Timestamp.now();
       const uploaded = [

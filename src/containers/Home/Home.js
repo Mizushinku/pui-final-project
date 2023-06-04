@@ -24,6 +24,7 @@ const Home = () => {
       10
     );
     getImageForGallery();
+    // eslint-disable-next-line
   }, []);
 
   const getImageForTrack = async (q, n) => {

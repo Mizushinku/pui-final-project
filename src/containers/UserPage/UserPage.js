@@ -6,7 +6,7 @@ import ImageGallery from "../ImageGallery/ImageGallery";
 import "./UserPage.scss";
 
 const UserPage = () => {
-  const { myImages } = useContext(userCtx);
+  const { myImages, myFavs } = useContext(userCtx);
 
   const [activeTab, setActiveTab] = useState("collection");
 
@@ -42,7 +42,7 @@ const UserPage = () => {
           <h1 className="fw-bold fs-1 text-center my-5">
             My Collections Gallery
           </h1>
-          <ImageGallery imgInfo={[]}></ImageGallery>
+          <ImageGallery imgInfo={myFavs}></ImageGallery>
         </TabPane>
         <TabPane tabId="myimage">
           {/* MyImage 內容 */}

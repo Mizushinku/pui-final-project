@@ -108,7 +108,7 @@ const UploadImage = () => {
     startIndex = str.lastIndexOf(startTag) + startTag.length;
     endIndex = str.indexOf(endTag, startIndex);
     const af_steps =
-      startIndex != -1 && endIndex != -1
+      startIndex !== -1 && endIndex !== -1
         ? str.slice(startIndex, endIndex).trim()
         : "";
     // seeds
@@ -116,7 +116,7 @@ const UploadImage = () => {
     startIndex = str.lastIndexOf(startTag) + startTag.length;
     endIndex = str.indexOf(endTag, startIndex);
     const af_seed =
-      str.lastIndexOf(startTag) != -1 && endIndex != -1
+      str.lastIndexOf(startTag) !== -1 && endIndex !== -1
         ? str.slice(startIndex, endIndex).trim()
         : "";
     //CFG scale
@@ -124,7 +124,7 @@ const UploadImage = () => {
     startIndex = str.lastIndexOf(startTag) + startTag.length;
     endIndex = str.indexOf(endTag, startIndex);
     const af_cfg =
-      str.lastIndexOf(startTag) != -1 && endIndex != -1
+      str.lastIndexOf(startTag) !== -1 && endIndex !== -1
         ? str.slice(startIndex, endIndex).trim()
         : "";
     //model
@@ -132,7 +132,7 @@ const UploadImage = () => {
     startIndex = str.lastIndexOf(startTag) + startTag.length;
     endIndex = str.indexOf(endTag, startIndex);
     const af_model =
-      str.lastIndexOf(startTag) != -1 && endIndex != -1
+      str.lastIndexOf(startTag) !== -1 && endIndex !== -1
         ? str.slice(startIndex, endIndex).trim()
         : "";
     //sampler
@@ -140,7 +140,7 @@ const UploadImage = () => {
     startIndex = str.lastIndexOf(startTag) + startTag.length;
     endIndex = str.indexOf(endTag, startIndex);
     const af_sampler =
-      str.lastIndexOf(startTag) != -1 && endIndex != -1
+      str.lastIndexOf(startTag) !== -1 && endIndex !== -1
         ? str.slice(startIndex, endIndex).trim()
         : "";
     //negative prompt
@@ -149,7 +149,7 @@ const UploadImage = () => {
     startIndex = str.lastIndexOf(startTag) + startTag.length;
     endIndex = str.indexOf(endTag, startIndex);
     const af_negativePrompt =
-      str.lastIndexOf(startTag) != -1 && endIndex != -1
+      str.lastIndexOf(startTag) !== -1 && endIndex !== -1
         ? str.slice(startIndex, endIndex).trim()
         : "";
     //prompt
@@ -157,7 +157,7 @@ const UploadImage = () => {
     startIndex = 0;
     endIndex = str.indexOf(endTag, startIndex);
     const af_prompt =
-      str.lastIndexOf(startTag) != -1 && endIndex != -1
+      str.lastIndexOf(startTag) !== -1 && endIndex !== -1
         ? str.slice(startIndex, endIndex).trim()
         : "";
     setInfo((prev) => ({

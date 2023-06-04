@@ -18,7 +18,7 @@ const Login = () => {
     if (!docSnap.exists()) {
       await setDoc(
         doc(db, userCollection, user.uid),
-        { uploaded: [] },
+        { uploaded: [], favs: [] },
         { merge: true }
       );
     }
