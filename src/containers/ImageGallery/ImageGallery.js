@@ -34,7 +34,7 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
         scrollbarWidth: "thin",
       }}
       className="gallery-container"
-      onScroll={handleScroll}
+      onScroll={reachBottom ? handleScroll : () => {}}
     >
       <Row sm="3" md="4" lg="5">
         {imgInfo.map((info, index) => (
