@@ -1,17 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Modal, ModalBody, ModalFooter, Button } from "reactstrap";
 import "./ImagePopup.css";
 import { UpdateLike } from "./UpdateLike";
 import { ReactComponent as Heart } from "../../assets/icons/favorite_FILL1_wght400_GRAD0_opsz48.svg";
 import { storage } from "../../index";
 import { ref, getMetadata } from "firebase/storage";
 import { userCtx } from "../../contexts/userContext";
+import appRoutes from "../../shared/appRoutes";
+import { useNavigate } from "react-router-dom";
 
 function ImagePopup({ info, closeImage }) {
   // console.log(info);
   const { currUser, myFavs } = useContext(userCtx);
   const [isFilled, setIsFilled] = useState(false);
   const [favCnt, setFavCnt] = useState(parseInt(info.fav));
-
+  const [redirectModal, setRedirectModal] = useState(true);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     const index = myFavs.findIndex((item) => item.name === info.name);
     if (index !== -1) {
@@ -27,6 +32,8 @@ function ImagePopup({ info, closeImage }) {
       if (!isFilled) UpdateLike(currUser.uid, fileName, "+", setFavCnt);
       else UpdateLike(currUser.uid, fileName, "-", setFavCnt);
       setIsFilled(!isFilled);
+    } else {
+      setShowLoginModal(true);
     }
   };
 
@@ -120,6 +127,35 @@ function ImagePopup({ info, closeImage }) {
             <div className="grid-inner">{favCnt}</div>
           </div>
         </div>
+        {showLoginModal ? (
+          <Modal
+            isOpen={redirectModal}
+            toggle={() => setRedirectModal((prev) => !prev)}
+            centered
+            onClosed={() => {
+              //navigate(appRoutes.login);
+            }}
+          >
+            <ModalBody className="fw-bold fs-3">Please Login.</ModalBody>
+            <ModalFooter>
+              <Button
+                onClick={() => {
+                  setShowLoginModal(false);
+                }}
+              >
+                返回
+              </Button>
+              <Button
+                onClick={() => {
+                  setRedirectModal((prev) => !prev);
+                  navigate(appRoutes.login);
+                }}
+              >
+                前往登入
+              </Button>
+            </ModalFooter>
+          </Modal>
+        ) : null}
       </div>
     </div>
   );
