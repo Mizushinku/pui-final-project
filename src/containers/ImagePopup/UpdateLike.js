@@ -40,9 +40,9 @@ export function UpdateLike(fileName, type, setFavCnt) {
     .then(() => {
       // 更新成功
       console.log("Metadata updated successfully");
-      if (type === "+") {
+      if (type === "+" && setFavCnt != null) {
         setFavCnt((prev) => prev + 1);
-      } else {
+      } else if (type === "-" && setFavCnt != null) {
         setFavCnt((prev) => prev - 1);
       }
       console.log(newMetadata.customMetadata);
