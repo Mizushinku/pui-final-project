@@ -1,23 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Container, Row, Col } from "reactstrap";
 import ImagePopup from "../ImagePopup/ImagePopup";
 import { ReactComponent as Heart } from "../../assets/icons/favorite_FILL1_wght400_GRAD0_opsz48.svg";
 import { UpdateLike } from "../ImagePopup/UpdateLike";
+import { userCtx } from "../../contexts/userContext";
 
 const ImageGallery = ({ imgInfo, reachBottom }) => {
+  const { currUser, myFavs } = useContext(userCtx);
   const [popupImgSrc, setPopupImgSrc] = useState(undefined);
   const closeImage = (e) => {
     setPopupImgSrc(undefined);
   };
-  const [isFilled, setIsFilled] = useState(Array(imgInfo.length).fill(false));
 
   const handleClick = (info, index) => {
     //Todo: update by data in firebase
-    let newIsFilled = [...isFilled];
-    if (!newIsFilled[index]) UpdateLike(info.name, "+", null);
-    else UpdateLike(info.name, "-", null);
-    newIsFilled[index] = !newIsFilled[index];
-    setIsFilled(newIsFilled);
+    if (!myFavs.some((item) => item.name === info.name))
+      UpdateLike(currUser.uid, info.name, "+", null);
+    else UpdateLike(currUser.uid, info.name, "-", null);
   };
 
   const handleScroll = (e) => {
@@ -64,9 +63,10 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
                   setPopupImgSrc(info);
                 }}
               />
-
               <Heart
-                className={`colored-svg ${isFilled[index] ? "fill" : ""}`}
+                className={`colored-svg ${
+                  myFavs.some((item) => item.name === info.name) ? "fill" : ""
+                }`}
                 style={{ position: "absolute", bottom: "10px", right: "10px" }}
                 onClick={(e) => {
                   handleClick(info, index);
