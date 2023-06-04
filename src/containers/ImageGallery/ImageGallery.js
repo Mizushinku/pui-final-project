@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col } from "reactstrap";
 import ImagePopup from "../ImagePopup/ImagePopup";
 import { ReactComponent as Heart } from "../../assets/icons/favorite_FILL1_wght400_GRAD0_opsz48.svg";
+import { UpdateLike } from "../ImagePopup/UpdateLike";
 
 const ImageGallery = ({ imgInfo, reachBottom }) => {
   const [popupImgSrc, setPopupImgSrc] = useState(undefined);
@@ -10,12 +11,13 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
   };
   const [isFilled, setIsFilled] = useState(Array(imgInfo.length).fill(false));
 
-  const handleClick = (id) => {
+  const handleClick = (info, index) => {
     //Todo: update by data in firebase
     let newIsFilled = [...isFilled];
-    newIsFilled[id] = !newIsFilled[id];
+    if (!newIsFilled[index]) UpdateLike(info.name, "+", null);
+    else UpdateLike(info.name, "-", null);
+    newIsFilled[index] = !newIsFilled[index];
     setIsFilled(newIsFilled);
-    console.log(id);
   };
 
   const handleScroll = (e) => {
@@ -64,10 +66,10 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
               />
 
               <Heart
-                className={`colored-svg ${isFilled[info.id] ? "fill" : ""}`}
+                className={`colored-svg ${isFilled[index] ? "fill" : ""}`}
                 style={{ position: "absolute", bottom: "10px", right: "10px" }}
                 onClick={(e) => {
-                  // handleClick(info.id);
+                  handleClick(info, index);
                 }}
               />
             </div>
