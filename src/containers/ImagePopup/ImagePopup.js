@@ -2,24 +2,27 @@ import React, { useState } from "react";
 import "./ImagePopup.css";
 import { UpdateLike } from "./UpdateLike";
 import { ReactComponent as Heart } from "../../assets/icons/favorite_FILL1_wght400_GRAD0_opsz48.svg";
+import { storage } from "../../index";
+import { ref, getMetadata, updateMetadata, listAll } from "firebase/storage";
 
-function ImagePopup(props) {
+function ImagePopup({ info, closeImage, reachBottom }) {
+  console.log(info);
   const [isFilled, setIsFilled] = useState(false);
-  const [favCnt, setFavCnt] = useState(parseInt(props.info.fav));
+  const [favCnt, setFavCnt] = useState(parseInt(info.fav));
 
   const handleClick = () => {
     //update user collection and liked number
-    const fileName = props.info.name;
+    const fileName = info.name;
     if (!isFilled) UpdateLike(fileName, "+", setFavCnt);
     else UpdateLike(fileName, "-", setFavCnt);
     setIsFilled(!isFilled);
   };
   return (
     <div>
-      <div className="popup-overlay" onClick={props.closeImage}>
+      <div className="popup-overlay" onClick={closeImage}>
         <div className="popup-container">
           <img
-            src={props.info["src"]}
+            src={info["src"]}
             alt=""
             className="popup-image"
             onClick={(e) => {
@@ -37,55 +40,55 @@ function ImagePopup(props) {
             <div className="grid-inner">Title:</div>
           </div>
           <div id="item-1" className="grid-item">
-            <div className="grid-inner">{props.info["title"]}</div>
+            <div className="grid-inner">{info["title"]}</div>
           </div>
           <div id="item-2" className="grid-item">
             <div className="grid-inner">Caption:</div>
           </div>
           <div id="item-3" className="grid-item">
-            <div className="grid-inner">{props.info["caption"]}</div>
+            <div className="grid-inner">{info["caption"]}</div>
           </div>
           <div id="item-4" className="grid-item">
             <div className="grid-inner">Prompt:</div>
           </div>
           <div id="item-5" className="grid-item">
-            {props.info["prompt"]}
+            {info["prompt"]}
           </div>
           <div id="item-6" className="grid-item">
             <div className="grid-inner">Negative Prompt:</div>
           </div>
           <div id="item-7" className="grid-item">
-            {props.info["negativePrompt"]}
+            {info["negativePrompt"]}
           </div>
           <div id="item-8" className="grid-item">
             <div className="grid-inner">Model:</div>
           </div>
           <div id="item-9" className="grid-item">
-            <div className="grid-inner">{props.info["model"]}</div>
+            <div className="grid-inner">{info["model"]}</div>
           </div>
           <div id="item-10" className="grid-item">
             <div className="grid-inner">CFG Scale:</div>
           </div>
           <div id="item-11" className="grid-item">
-            <div className="grid-inner">{props.info["cfg"]}</div>
+            <div className="grid-inner">{info["cfg"]}</div>
           </div>
           <div id="item-12" className="grid-item">
             <div className="grid-inner">Seed:</div>
           </div>
           <div id="item-13" className="grid-item">
-            <div className="grid-inner">{props.info["seed"]}</div>
+            <div className="grid-inner">{info["seed"]}</div>
           </div>
           <div id="item-14" className="grid-item">
             <div className="grid-inner">Sampler:</div>
           </div>
           <div id="item-15" className="grid-item">
-            <div className="grid-inner">{props.info["sampler"]}</div>
+            <div className="grid-inner">{info["sampler"]}</div>
           </div>
           <div id="item-16" className="grid-item">
             <div className="grid-inner">Step:</div>
           </div>
           <div id="item-17" className="grid-item">
-            <div className="grid-inner">{props.info["step"]}</div>
+            <div className="grid-inner">{info["step"]}</div>
           </div>
           <div id="item-18" className="grid-item">
             <Heart
