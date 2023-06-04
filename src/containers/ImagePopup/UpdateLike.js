@@ -19,7 +19,10 @@ export function UpdateLike(userUid, fileName, type, setFavCnt) {
             ...metadata,
             customMetadata: {
               ...metadata.customMetadata,
-              fav: parseInt(metadata.customMetadata.fav) + 1,
+              fav:
+                parseInt(metadata.customMetadata.fav) <= 0
+                  ? 1
+                  : parseInt(metadata.customMetadata.fav) + 1,
             },
           };
         } else if (type === "-") {
@@ -28,7 +31,10 @@ export function UpdateLike(userUid, fileName, type, setFavCnt) {
             ...metadata,
             customMetadata: {
               ...metadata.customMetadata,
-              fav: parseInt(metadata.customMetadata.fav) - 1,
+              fav:
+                parseInt(metadata.customMetadata.fav) === 0
+                  ? 0
+                  : parseInt(metadata.customMetadata.fav) - 1,
             },
           };
         }
