@@ -1,9 +1,20 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Upload.css";
-import { Button, Form, FormGroup, Label, Input, Row, Col } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Row,
+  Col,
+  Modal,
+  ModalBody,
+} from "reactstrap";
 import { userCtx } from "../../contexts/userContext";
 import UploadModal from "./UploadModal/UploadModal";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import appRoutes from "../../shared/appRoutes";
 
 const UploadImage = () => {
   const { currUser } = useContext(userCtx);
@@ -24,6 +35,7 @@ const UploadImage = () => {
     fav: 0,
   });
   const [modal, setModal] = useState(false);
+  const [redirectModal, setRedirectModal] = useState(true);
 
   const infoRef = useRef(undefined);
 
@@ -46,6 +58,8 @@ const UploadImage = () => {
       fav: 0,
     });
   }, [location]);
+
+  const navigate = useNavigate();
 
   const toggle = () => {
     setModal((prev) => !prev);
@@ -175,187 +189,200 @@ const UploadImage = () => {
 
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
-        <div className="form-container">
-          <div className="form-col">
-            <FormGroup>
-              <Label for="image">圖片選擇器：</Label>
-              <Input
-                key={inputKey}
-                type="file"
-                id="image"
-                accept="image/*"
-                onChange={handleImageUpload}
-                required
-              />
-            </FormGroup>
-            {previewImage && (
-              <div className="preview-image-container">
-                <img
-                  src={previewImage}
-                  alt="圖片預覽"
-                  style={{ maxWidth: "500px", maxHeight: "500px" }}
-                />
-              </div>
-            )}
+      {currUser ? (
+        <div>
+          <Form onSubmit={handleSubmit}>
+            <div className="form-container">
+              <div className="form-col">
+                <FormGroup>
+                  <Label for="image">圖片選擇器：</Label>
+                  <Input
+                    key={inputKey}
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    required
+                  />
+                </FormGroup>
+                {previewImage && (
+                  <div className="preview-image-container">
+                    <img
+                      src={previewImage}
+                      alt="圖片預覽"
+                      style={{ maxWidth: "500px", maxHeight: "500px" }}
+                    />
+                  </div>
+                )}
 
-            <FormGroup>
-              <Label for="auto-fill">Auto Fill：</Label>
-              <Row>
-                <Col>
+                <FormGroup>
+                  <Label for="auto-fill">Auto Fill：</Label>
+                  <Row>
+                    <Col>
+                      <Input
+                        type="textarea"
+                        rows="4"
+                        id="auto-fill"
+                        className="w-100"
+                        value={autoFill}
+                        onChange={(e) => {
+                          setAutoFill(e.target.value);
+                        }}
+                      />
+                    </Col>
+                    <Col xs="auto" className="d-flex justify-content-center">
+                      <Button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={autoFillData}
+                      >
+                        Fill
+                      </Button>
+                    </Col>
+                  </Row>
+                </FormGroup>
+                <div className="d-flex flex-row justify-content-center mt-5">
+                  <Button type="submit" color="primary" className="px-5">
+                    上傳
+                  </Button>
+                </div>
+              </div>
+              <div className="form-col">
+                <FormGroup>
+                  <Label for="title">標題：</Label>
+                  <Input
+                    type="text"
+                    id="title"
+                    value={info.title}
+                    // onChange={(e) => setTitle(e.target.value)}
+                    onChange={(e) =>
+                      setInfo((prev) => ({ ...prev, title: e.target.value }))
+                    }
+                    required
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="caption">標語：</Label>
+                  <Input
+                    type="text"
+                    id="caption"
+                    value={info.caption}
+                    // onChange={(e) => setCaption(e.target.value)}
+                    onChange={(e) =>
+                      setInfo((prev) => ({ ...prev, caption: e.target.value }))
+                    }
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="prompt">Prompt：</Label>
                   <Input
                     type="textarea"
-                    rows="4"
-                    id="auto-fill"
-                    className="w-100"
-                    value={autoFill}
-                    onChange={(e) => {
-                      setAutoFill(e.target.value);
-                    }}
+                    rows="3"
+                    id="prompt"
+                    value={info.prompt}
+                    // onChange={(e) => setPrompt(e.target.value)}
+                    onChange={(e) =>
+                      setInfo((prev) => ({ ...prev, prompt: e.target.value }))
+                    }
                   />
-                </Col>
-                <Col xs="auto" className="d-flex justify-content-center">
-                  <Button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={autoFillData}
-                  >
-                    Fill
-                  </Button>
-                </Col>
-              </Row>
-            </FormGroup>
-            <div className="d-flex flex-row justify-content-center mt-5">
-              <Button type="submit" color="primary" className="px-5">
-                上傳
-              </Button>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="negativePrompt">Negative Prompt：</Label>
+                  <Input
+                    type="textarea"
+                    rows="3"
+                    id="negativePrompt"
+                    value={info.negativePrompt}
+                    // onChange={(e) => setNegativePrompt(e.target.value)}
+                    onChange={(e) =>
+                      setInfo((prev) => ({
+                        ...prev,
+                        negativePrompt: e.target.value,
+                      }))
+                    }
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="model">Model：</Label>
+                  <Input
+                    type="text"
+                    id="model"
+                    value={info.model}
+                    // onChange={(e) => setModel(e.target.value)}
+                    onChange={(e) =>
+                      setInfo((prev) => ({ ...prev, model: e.target.value }))
+                    }
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="sampler">Sampler：</Label>
+                  <Input
+                    type="text"
+                    id="sampler"
+                    value={info.sampler}
+                    // onChange={(e) => setSampler(e.target.value)}
+                    onChange={(e) =>
+                      setInfo((prev) => ({ ...prev, sampler: e.target.value }))
+                    }
+                  ></Input>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="step">Step：</Label>
+                  <Input
+                    type="number"
+                    id="step"
+                    value={info.step}
+                    // onChange={(e) => setStep(e.target.value)}
+                    onChange={(e) =>
+                      setInfo((prev) => ({ ...prev, step: e.target.value }))
+                    }
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="cfg">CFG Scale：</Label>
+                  <Input
+                    type="number"
+                    id="cfg"
+                    value={info.cfg}
+                    // onChange={(e) => setStep(e.target.value)}
+                    onChange={(e) =>
+                      setInfo((prev) => ({ ...prev, cfg: e.target.value }))
+                    }
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="seed">Seed：</Label>
+                  <Input
+                    type="number"
+                    id="seed"
+                    value={info.seed}
+                    // onChange={(e) => setSeed(e.target.value)}
+                    onChange={(e) =>
+                      setInfo((prev) => ({ ...prev, seed: e.target.value }))
+                    }
+                  />
+                </FormGroup>
+              </div>
             </div>
-          </div>
-          <div className="form-col">
-            <FormGroup>
-              <Label for="title">標題：</Label>
-              <Input
-                type="text"
-                id="title"
-                value={info.title}
-                // onChange={(e) => setTitle(e.target.value)}
-                onChange={(e) =>
-                  setInfo((prev) => ({ ...prev, title: e.target.value }))
-                }
-                required
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="caption">標語：</Label>
-              <Input
-                type="text"
-                id="caption"
-                value={info.caption}
-                // onChange={(e) => setCaption(e.target.value)}
-                onChange={(e) =>
-                  setInfo((prev) => ({ ...prev, caption: e.target.value }))
-                }
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="prompt">Prompt：</Label>
-              <Input
-                type="textarea"
-                rows="3"
-                id="prompt"
-                value={info.prompt}
-                // onChange={(e) => setPrompt(e.target.value)}
-                onChange={(e) =>
-                  setInfo((prev) => ({ ...prev, prompt: e.target.value }))
-                }
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="negativePrompt">Negative Prompt：</Label>
-              <Input
-                type="textarea"
-                rows="3"
-                id="negativePrompt"
-                value={info.negativePrompt}
-                // onChange={(e) => setNegativePrompt(e.target.value)}
-                onChange={(e) =>
-                  setInfo((prev) => ({
-                    ...prev,
-                    negativePrompt: e.target.value,
-                  }))
-                }
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="model">Model：</Label>
-              <Input
-                type="text"
-                id="model"
-                value={info.model}
-                // onChange={(e) => setModel(e.target.value)}
-                onChange={(e) =>
-                  setInfo((prev) => ({ ...prev, model: e.target.value }))
-                }
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="sampler">Sampler：</Label>
-              <Input
-                type="text"
-                id="sampler"
-                value={info.sampler}
-                // onChange={(e) => setSampler(e.target.value)}
-                onChange={(e) =>
-                  setInfo((prev) => ({ ...prev, sampler: e.target.value }))
-                }
-              ></Input>
-            </FormGroup>
-            <FormGroup>
-              <Label for="step">Step：</Label>
-              <Input
-                type="number"
-                id="step"
-                value={info.step}
-                // onChange={(e) => setStep(e.target.value)}
-                onChange={(e) =>
-                  setInfo((prev) => ({ ...prev, step: e.target.value }))
-                }
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="cfg">CFG Scale：</Label>
-              <Input
-                type="number"
-                id="cfg"
-                value={info.cfg}
-                // onChange={(e) => setStep(e.target.value)}
-                onChange={(e) =>
-                  setInfo((prev) => ({ ...prev, cfg: e.target.value }))
-                }
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="seed">Seed：</Label>
-              <Input
-                type="number"
-                id="seed"
-                value={info.seed}
-                // onChange={(e) => setSeed(e.target.value)}
-                onChange={(e) =>
-                  setInfo((prev) => ({ ...prev, seed: e.target.value }))
-                }
-              />
-            </FormGroup>
-          </div>
+          </Form>
+          <UploadModal
+            modal={modal}
+            toggle={toggle}
+            user={currUser}
+            file={selectedImage}
+            infoRef={infoRef}
+          ></UploadModal>
         </div>
-      </Form>
-      <UploadModal
-        modal={modal}
-        toggle={toggle}
-        user={currUser}
-        file={selectedImage}
-        infoRef={infoRef}
-      ></UploadModal>
+      ) : (
+        <Modal
+          isOpen={redirectModal}
+          toggle={() => setRedirectModal((prev) => !prev)}
+          centered
+          onClosed={() => navigate(appRoutes.login)}
+        >
+          <ModalBody className="fw-bold fs-3">Please Login.</ModalBody>
+        </Modal>
+      )}
     </div>
   );
 };

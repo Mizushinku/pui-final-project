@@ -8,7 +8,7 @@ import {
   Navbar,
   NavbarBrand,
 } from "reactstrap";
-import { NavLink as RouterNavLink, redirect } from "react-router-dom";
+import { NavLink as RouterNavLink, useNavigate } from "react-router-dom";
 import { userCtx } from "../../contexts/userContext";
 import { getAuth, signOut } from "firebase/auth";
 
@@ -19,13 +19,14 @@ import "./Navigation.scss";
 const Navigation = () => {
   const { currUser } = useContext(userCtx);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
   const auth = getAuth();
 
   const handleLogout = () => {
     console.log("on Logout...");
     signOut(auth).then(() => {
       console.log("Logout success.");
-      return redirect(appRoutes.home);
+      navigate(appRoutes.home);
     });
   };
 

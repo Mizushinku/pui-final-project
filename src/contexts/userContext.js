@@ -100,6 +100,9 @@ const UserProvider = ({ children }) => {
         }
       );
       return unsub;
+    } else {
+      setMyImages([]);
+      setMyFavs([]);
     }
   }, [currUser]);
 
