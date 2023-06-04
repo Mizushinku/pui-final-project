@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
 import { db, storage } from "../index";
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, onSnapshot } from "firebase/firestore";
 import "./userContext.scss";
 import { ref, getDownloadURL, getMetadata } from "firebase/storage";
 
@@ -37,16 +37,32 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const auth = getAuth();
-    const unsub = auth.onAuthStateChanged((user) => {
+    const unsubAuth = auth.onAuthStateChanged((user) => {
       setCurrUser(user);
       getMyImages(user.uid);
       setPending(false);
     });
 
     return () => {
-      unsub();
+      unsubAuth();
     };
   }, []);
+
+  useEffect(() => {
+    if (currUser) {
+      const unsub = onSnapshot(
+        doc(db, "users", currUser.uid),
+        { includeMetadataChanges: true },
+        (doc) => {
+          const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+          if (source === "Server") {
+            getMyImages(currUser.uid);
+          }
+        }
+      );
+      return unsub;
+    }
+  }, [currUser]);
 
   if (pending) {
     return (
