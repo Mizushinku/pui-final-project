@@ -129,11 +129,12 @@ function ImagePopup({ info, closeImage }) {
         </div>
         {showLoginModal ? (
           <Modal
+            backdrop={false}
             isOpen={redirectModal}
             toggle={() => setRedirectModal((prev) => !prev)}
             centered
             onClosed={() => {
-              //navigate(appRoutes.login);
+              navigate(appRoutes.login);
             }}
           >
             <ModalBody className="fw-bold fs-3">Please Login.</ModalBody>
@@ -148,7 +149,6 @@ function ImagePopup({ info, closeImage }) {
               <Button
                 onClick={() => {
                   setRedirectModal((prev) => !prev);
-                  navigate(appRoutes.login);
                 }}
               >
                 前往登入
