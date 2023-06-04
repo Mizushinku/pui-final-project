@@ -58,7 +58,7 @@ const ImageGallery = ({ imgInfo, reachBottom }) => {
     <Container
       fluid
       style={{
-        maxHeight: "70vh",
+        maxHeight: "85vh",
         overflow: "auto",
         scrollbarWidth: "thin",
       }}
