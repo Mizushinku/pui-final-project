@@ -18,8 +18,10 @@ const UserProvider = ({ children }) => {
   const getMyImages = async (uid) => {
     const docRef = doc(db, "users", uid);
     const userDoc = await getDoc(docRef);
+    if (!userDoc.exists()) {
+      return;
+    }
     const uploaded = userDoc.data().uploaded;
-    console.log(cntMyImage, uploaded.length);
     if (cntMyImage === uploaded.length) {
       return;
     }
@@ -46,6 +48,9 @@ const UserProvider = ({ children }) => {
   const getMyFavs = async (uid) => {
     const docRef = doc(db, "users", uid);
     const userDoc = await getDoc(docRef);
+    if (!userDoc.exists()) {
+      return;
+    }
     const favs = userDoc.data().favs;
     if (favs.length === 0) {
       setMyFavs([]);
